@@ -1,13 +1,15 @@
 module "network" {
     source      = "../../modules/network"
-    
-    all_tags = default
+
+    environment = "dev"
+    project     = "aws-thesis"
 }
 
 module "ecs_cluster" {
   source      = "../../modules/ecs_cluster"
   name_prefix = "ecs"
   environment = "dev"
+  project = "aws-thesis"
 
   enable_container_insights = true
 
@@ -20,4 +22,16 @@ module "ecs_cluster" {
       base              = 1
     }
   ]
+}
+
+module "alb" {
+  source = "../../modules/alb"
+
+  name_prefix     = "kriszboutique"
+  subnet_ids      = module.network.public_subnet_ids
+  security_groups = [module.alb_sg.security_group_id]
+  enable_deletion_protection = false
+
+  environment = "dev"
+  project     = "aws-thesis"
 }

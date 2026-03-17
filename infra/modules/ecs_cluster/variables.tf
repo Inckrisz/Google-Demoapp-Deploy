@@ -8,6 +8,11 @@ variable "environment" {
   type        = string
 }
 
+variable "project" {
+  description = "Project name for tags"
+  type = string
+}
+
 variable "enable_container_insights" {
   description = "Enable CloudWatch Container Insights"
   type        = bool
