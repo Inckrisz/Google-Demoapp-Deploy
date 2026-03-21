@@ -1,14 +1,24 @@
 resource "aws_ecs_service" "this" {
   name            = "${var.name_prefix}-service"
-  cluster         = aws_ecs_cluster.foo.id
-  task_definition = aws_ecs_task_definition.mongo.arn
+  cluster         = var.cluster_arn
+  task_definition = var.task_definition_arn
   desired_count   = var.desired_count
+
+  launch_type = "FARGATE"
+
+   network_configuration {
+    subnets          = var.subnet_ids
+    security_groups  = var.security_group_ids
+    assign_public_ip = true
+  }
+
   iam_role        = var.iam_role
-  depends_on      = [aws_iam_role_policy.foo]
 
   load_balancer {
-    target_group_arn = aws_lb_target_group.foo.arn
+    target_group_arn = var.target_group_arn
     container_name   = var.container_name
     container_port   = var.container_port
   }
+  
+  depends_on = [var.listener_dependency]
 }

@@ -10,7 +10,7 @@ resource "aws_security_group" "this" {
   }
 }
 
-resource "aws_vpc_security_group_ingress_rule" "allow_tls_ipv4" {
+resource "aws_vpc_security_group_ingress_rule" "allow_ipv4" {
   security_group_id = aws_security_group.this.id
   cidr_ipv4         = var.vpc_cidr_block
   from_port         = var.from_port
@@ -18,7 +18,7 @@ resource "aws_vpc_security_group_ingress_rule" "allow_tls_ipv4" {
   to_port           = var.to_port
 }
 
-resource "aws_vpc_security_group_ingress_rule" "allow_tls_ipv6" {
+resource "aws_vpc_security_group_ingress_rule" "allow_ipv6" {
   security_group_id = aws_security_group.this.id
   cidr_ipv6         = var.vpc_cidr_blockipv6
   from_port         = var.from_port

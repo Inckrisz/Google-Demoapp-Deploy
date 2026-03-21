@@ -8,6 +8,14 @@ variable "containers" {
   type = list(any)
 }
 
+variable "execution_role_arn" {
+  
+}
+
+variable "task_role_arn" {
+  
+}
+
 # example jsonencode([
 #     {
 #       name      = var.name

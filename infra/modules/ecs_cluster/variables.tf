@@ -16,11 +16,13 @@ variable "project" {
 variable "enable_container_insights" {
   description = "Enable CloudWatch Container Insights"
   type        = bool
+  default = true
 }
 
 variable "capacity_providers" {
   description = "List of capacity providers to associate with the ECS cluster"
   type        = list(string)
+  default     = ["FARGATE"]
 }
 
 variable "default_capacity_provider_strategy" {
@@ -30,4 +32,12 @@ variable "default_capacity_provider_strategy" {
     weight            = number
     base              = number
   }))
+
+  default = [
+  {
+    capacity_provider = "FARGATE"
+    weight            = 1
+    base              = 0
+  }
+ ]
 }

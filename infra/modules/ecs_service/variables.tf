@@ -22,3 +22,39 @@ variable "container_port" {
  description = "Port on the container to associate with the load balancer."
  type = number
 }
+
+variable "cluster_arn" {
+  type = string
+}
+
+variable "task_definition_arn" {
+  type = string
+}
+
+variable "subnet_ids" {
+  type = list(string)
+}
+
+variable "security_group_ids" {
+  type = list(string)
+}
+
+variable "target_group_arn" {
+  type = string
+}
+
+variable "container_name" {
+  type = string
+}
+
+variable "container_port" {
+  type = number
+}
+
+variable "desired_count" {
+  type = number
+}
+
+variable "listener_dependency" {
+  
+}

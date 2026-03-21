@@ -1,5 +1,5 @@
 resource "aws_ecs_cluster" "this" {
-  name = "${var.name_prefix}-cluster"
+  name = "${var.name_prefix}-cluster-${var.environment}"
 
   setting {
     name  = "containerInsights"
@@ -7,7 +7,7 @@ resource "aws_ecs_cluster" "this" {
   }
 
   tags = {
-    Name        = "${var.name_prefix}-cluster"
+    Name        = "${var.name_prefix}-cluster-${var.environment}"
     Environment = var.environment
     Project     = var.project
   }

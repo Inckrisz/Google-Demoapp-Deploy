@@ -7,7 +7,7 @@ module "network" {
 
 module "ecs_cluster" {
   source      = "../../modules/ecs_cluster"
-  name_prefix = "ecs"
+  name_prefix = "kriszboutique"
   environment = "dev"
   project = "aws-thesis"
 

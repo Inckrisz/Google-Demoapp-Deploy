@@ -1,5 +1,5 @@
-resource "aws_lb" "test" {
-  name               =  "${var.name_prefix}-alb"
+resource "aws_lb" "this" {
+  name               =  "${var.name_prefix}-alb-${var.environment}"
   internal           = false
   load_balancer_type = "application"
   security_groups    = var.security_groups
@@ -14,7 +14,7 @@ resource "aws_lb" "test" {
 #   }
 
   tags = {
-    Name        = "${var.name_prefix}-alb"
+    Name        = "${var.name_prefix}-alb-${var.environment}"
     Environment = var.environment
     Project     = var.project
   }
