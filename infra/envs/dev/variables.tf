@@ -1,6 +1,7 @@
 variable "name_prefix" {
   description = "Prefix for the ECS cluster name"
   type        = string
+  default = "kriszboutique"
 }
 
 variable "environment" {
