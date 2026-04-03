@@ -1,6 +1,6 @@
 output "task_def_id" {
   description = "Id of Task Definition"
-  value = aws_ecs_task_definition.service.id
+  value = aws_ecs_task_definition.this.id
 }
 
 output "task_definition_arn" {

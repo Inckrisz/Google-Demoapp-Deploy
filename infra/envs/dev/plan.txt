@@ -1,0 +1,1043 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [32m+[0m create[0m
+
+Terraform will perform the following actions:
+
+[1m  # aws_iam_role.ecs_task_execution_role[0m will be created
+[0m  [32m+[0m[0m resource "aws_iam_role" "ecs_task_execution_role" {
+      [32m+[0m[0m arn                   = (known after apply)
+      [32m+[0m[0m assume_role_policy    = jsonencode(
+            {
+              [32m+[0m[0m Statement = [
+                  [32m+[0m[0m {
+                      [32m+[0m[0m Action    = "sts:AssumeRole"
+                      [32m+[0m[0m Effect    = "Allow"
+                      [32m+[0m[0m Principal = {
+                          [32m+[0m[0m Service = "ecs-tasks.amazonaws.com"
+                        }
+                    },
+                ]
+              [32m+[0m[0m Version   = "2012-10-17"
+            }
+        )
+      [32m+[0m[0m create_date           = (known after apply)
+      [32m+[0m[0m force_detach_policies = false
+      [32m+[0m[0m id                    = (known after apply)
+      [32m+[0m[0m managed_policy_arns   = (known after apply)
+      [32m+[0m[0m max_session_duration  = 3600
+      [32m+[0m[0m name                  = "kriszboutique-ecs-execution-role-dev"
+      [32m+[0m[0m name_prefix           = (known after apply)
+      [32m+[0m[0m path                  = "/"
+      [32m+[0m[0m tags                  = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "kriszboutique-ecs-execution-role"
+          [32m+[0m[0m "Project"     = "project_thesis"
+        }
+      [32m+[0m[0m tags_all              = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "kriszboutique-ecs-execution-role"
+          [32m+[0m[0m "Project"     = "project_thesis"
+        }
+      [32m+[0m[0m unique_id             = (known after apply)
+
+      [32m+[0m[0m inline_policy (known after apply)
+    }
+
+[1m  # aws_iam_role.ecs_task_role[0m will be created
+[0m  [32m+[0m[0m resource "aws_iam_role" "ecs_task_role" {
+      [32m+[0m[0m arn                   = (known after apply)
+      [32m+[0m[0m assume_role_policy    = jsonencode(
+            {
+              [32m+[0m[0m Statement = [
+                  [32m+[0m[0m {
+                      [32m+[0m[0m Action    = "sts:AssumeRole"
+                      [32m+[0m[0m Effect    = "Allow"
+                      [32m+[0m[0m Principal = {
+                          [32m+[0m[0m Service = "ecs-tasks.amazonaws.com"
+                        }
+                    },
+                ]
+              [32m+[0m[0m Version   = "2012-10-17"
+            }
+        )
+      [32m+[0m[0m create_date           = (known after apply)
+      [32m+[0m[0m force_detach_policies = false
+      [32m+[0m[0m id                    = (known after apply)
+      [32m+[0m[0m managed_policy_arns   = (known after apply)
+      [32m+[0m[0m max_session_duration  = 3600
+      [32m+[0m[0m name                  = "kriszboutique-ecs-task-role-dev"
+      [32m+[0m[0m name_prefix           = (known after apply)
+      [32m+[0m[0m path                  = "/"
+      [32m+[0m[0m tags                  = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "kriszboutique-ecs-task-role"
+          [32m+[0m[0m "Project"     = "project_thesis"
+        }
+      [32m+[0m[0m tags_all              = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "kriszboutique-ecs-task-role"
+          [32m+[0m[0m "Project"     = "project_thesis"
+        }
+      [32m+[0m[0m unique_id             = (known after apply)
+
+      [32m+[0m[0m inline_policy (known after apply)
+    }
+
+[1m  # aws_iam_role_policy_attachment.ecs_execution_policy[0m will be created
+[0m  [32m+[0m[0m resource "aws_iam_role_policy_attachment" "ecs_execution_policy" {
+      [32m+[0m[0m id         = (known after apply)
+      [32m+[0m[0m policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+      [32m+[0m[0m role       = "kriszboutique-ecs-execution-role-dev"
+    }
+
+[1m  # aws_lb_listener.http[0m will be created
+[0m  [32m+[0m[0m resource "aws_lb_listener" "http" {
+      [32m+[0m[0m arn                                                                   = (known after apply)
+      [32m+[0m[0m id                                                                    = (known after apply)
+      [32m+[0m[0m load_balancer_arn                                                     = (known after apply)
+      [32m+[0m[0m port                                                                  = 80
+      [32m+[0m[0m protocol                                                              = "HTTP"
+      [32m+[0m[0m routing_http_request_x_amzn_mtls_clientcert_header_name               = (known after apply)
+      [32m+[0m[0m routing_http_request_x_amzn_mtls_clientcert_issuer_header_name        = (known after apply)
+      [32m+[0m[0m routing_http_request_x_amzn_mtls_clientcert_leaf_header_name          = (known after apply)
+      [32m+[0m[0m routing_http_request_x_amzn_mtls_clientcert_serial_number_header_name = (known after apply)
+      [32m+[0m[0m routing_http_request_x_amzn_mtls_clientcert_subject_header_name       = (known after apply)
+      [32m+[0m[0m routing_http_request_x_amzn_mtls_clientcert_validity_header_name      = (known after apply)
+      [32m+[0m[0m routing_http_request_x_amzn_tls_cipher_suite_header_name              = (known after apply)
+      [32m+[0m[0m routing_http_request_x_amzn_tls_version_header_name                   = (known after apply)
+      [32m+[0m[0m routing_http_response_access_control_allow_credentials_header_value   = (known after apply)
+      [32m+[0m[0m routing_http_response_access_control_allow_headers_header_value       = (known after apply)
+      [32m+[0m[0m routing_http_response_access_control_allow_methods_header_value       = (known after apply)
+      [32m+[0m[0m routing_http_response_access_control_allow_origin_header_value        = (known after apply)
+      [32m+[0m[0m routing_http_response_access_control_expose_headers_header_value      = (known after apply)
+      [32m+[0m[0m routing_http_response_access_control_max_age_header_value             = (known after apply)
+      [32m+[0m[0m routing_http_response_content_security_policy_header_value            = (known after apply)
+      [32m+[0m[0m routing_http_response_server_enabled                                  = (known after apply)
+      [32m+[0m[0m routing_http_response_strict_transport_security_header_value          = (known after apply)
+      [32m+[0m[0m routing_http_response_x_content_type_options_header_value             = (known after apply)
+      [32m+[0m[0m routing_http_response_x_frame_options_header_value                    = (known after apply)
+      [32m+[0m[0m ssl_policy                                                            = (known after apply)
+      [32m+[0m[0m tags_all                                                              = (known after apply)
+      [32m+[0m[0m tcp_idle_timeout_seconds                                              = (known after apply)
+
+      [32m+[0m[0m default_action {
+          [32m+[0m[0m order            = (known after apply)
+          [32m+[0m[0m target_group_arn = (known after apply)
+          [32m+[0m[0m type             = "forward"
+        }
+
+      [32m+[0m[0m mutual_authentication (known after apply)
+    }
+
+[1m  # aws_lb_target_group.frontend[0m will be created
+[0m  [32m+[0m[0m resource "aws_lb_target_group" "frontend" {
+      [32m+[0m[0m arn                                = (known after apply)
+      [32m+[0m[0m arn_suffix                         = (known after apply)
+      [32m+[0m[0m connection_termination             = (known after apply)
+      [32m+[0m[0m deregistration_delay               = "300"
+      [32m+[0m[0m id                                 = (known after apply)
+      [32m+[0m[0m ip_address_type                    = (known after apply)
+      [32m+[0m[0m lambda_multi_value_headers_enabled = false
+      [32m+[0m[0m load_balancer_arns                 = (known after apply)
+      [32m+[0m[0m load_balancing_algorithm_type      = (known after apply)
+      [32m+[0m[0m load_balancing_anomaly_mitigation  = (known after apply)
+      [32m+[0m[0m load_balancing_cross_zone_enabled  = (known after apply)
+      [32m+[0m[0m name                               = "kriszboutique-frontend-tg-dev"
+      [32m+[0m[0m name_prefix                        = (known after apply)
+      [32m+[0m[0m port                               = 8080
+      [32m+[0m[0m preserve_client_ip                 = (known after apply)
+      [32m+[0m[0m protocol                           = "HTTP"
+      [32m+[0m[0m protocol_version                   = (known after apply)
+      [32m+[0m[0m proxy_protocol_v2                  = false
+      [32m+[0m[0m slow_start                         = 0
+      [32m+[0m[0m tags_all                           = (known after apply)
+      [32m+[0m[0m target_type                        = "ip"
+      [32m+[0m[0m vpc_id                             = (known after apply)
+
+      [32m+[0m[0m health_check {
+          [32m+[0m[0m enabled             = true
+          [32m+[0m[0m healthy_threshold   = 2
+          [32m+[0m[0m interval            = 30
+          [32m+[0m[0m matcher             = "200"
+          [32m+[0m[0m path                = "/_healthz"
+          [32m+[0m[0m port                = "traffic-port"
+          [32m+[0m[0m protocol            = "HTTP"
+          [32m+[0m[0m timeout             = (known after apply)
+          [32m+[0m[0m unhealthy_threshold = 2
+        }
+
+      [32m+[0m[0m stickiness (known after apply)
+
+      [32m+[0m[0m target_failover (known after apply)
+
+      [32m+[0m[0m target_group_health (known after apply)
+
+      [32m+[0m[0m target_health_state (known after apply)
+    }
+
+[1m  # aws_security_group.alb[0m will be created
+[0m  [32m+[0m[0m resource "aws_security_group" "alb" {
+      [32m+[0m[0m arn                    = (known after apply)
+      [32m+[0m[0m description            = "Security group for ALB"
+      [32m+[0m[0m egress                 = (known after apply)
+      [32m+[0m[0m id                     = (known after apply)
+      [32m+[0m[0m ingress                = (known after apply)
+      [32m+[0m[0m name                   = "kriszboutique-alb-sg-dev"
+      [32m+[0m[0m name_prefix            = (known after apply)
+      [32m+[0m[0m owner_id               = (known after apply)
+      [32m+[0m[0m revoke_rules_on_delete = false
+      [32m+[0m[0m tags                   = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "kriszboutique-alb-sg-dev"
+          [32m+[0m[0m "Project"     = "project_thesis"
+        }
+      [32m+[0m[0m tags_all               = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "kriszboutique-alb-sg-dev"
+          [32m+[0m[0m "Project"     = "project_thesis"
+        }
+      [32m+[0m[0m vpc_id                 = (known after apply)
+    }
+
+[1m  # aws_security_group.ecs_services[0m will be created
+[0m  [32m+[0m[0m resource "aws_security_group" "ecs_services" {
+      [32m+[0m[0m arn                    = (known after apply)
+      [32m+[0m[0m description            = "Security group for ECS services"
+      [32m+[0m[0m egress                 = (known after apply)
+      [32m+[0m[0m id                     = (known after apply)
+      [32m+[0m[0m ingress                = (known after apply)
+      [32m+[0m[0m name                   = "kriszboutique-ecs-sg-dev"
+      [32m+[0m[0m name_prefix            = (known after apply)
+      [32m+[0m[0m owner_id               = (known after apply)
+      [32m+[0m[0m revoke_rules_on_delete = false
+      [32m+[0m[0m tags                   = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "kriszboutique-ecs-sg-dev"
+          [32m+[0m[0m "Project"     = "project_thesis"
+        }
+      [32m+[0m[0m tags_all               = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "kriszboutique-ecs-sg-dev"
+          [32m+[0m[0m "Project"     = "project_thesis"
+        }
+      [32m+[0m[0m vpc_id                 = (known after apply)
+    }
+
+[1m  # aws_vpc_security_group_egress_rule.alb_egress[0m will be created
+[0m  [32m+[0m[0m resource "aws_vpc_security_group_egress_rule" "alb_egress" {
+      [32m+[0m[0m arn                    = (known after apply)
+      [32m+[0m[0m cidr_ipv4              = "0.0.0.0/0"
+      [32m+[0m[0m id                     = (known after apply)
+      [32m+[0m[0m ip_protocol            = "-1"
+      [32m+[0m[0m security_group_id      = (known after apply)
+      [32m+[0m[0m security_group_rule_id = (known after apply)
+      [32m+[0m[0m tags_all               = {}
+    }
+
+[1m  # aws_vpc_security_group_egress_rule.ecs_egress[0m will be created
+[0m  [32m+[0m[0m resource "aws_vpc_security_group_egress_rule" "ecs_egress" {
+      [32m+[0m[0m arn                    = (known after apply)
+      [32m+[0m[0m cidr_ipv4              = "0.0.0.0/0"
+      [32m+[0m[0m id                     = (known after apply)
+      [32m+[0m[0m ip_protocol            = "-1"
+      [32m+[0m[0m security_group_id      = (known after apply)
+      [32m+[0m[0m security_group_rule_id = (known after apply)
+      [32m+[0m[0m tags_all               = {}
+    }
+
+[1m  # aws_vpc_security_group_ingress_rule.alb_http[0m will be created
+[0m  [32m+[0m[0m resource "aws_vpc_security_group_ingress_rule" "alb_http" {
+      [32m+[0m[0m arn                    = (known after apply)
+      [32m+[0m[0m cidr_ipv4              = "0.0.0.0/0"
+      [32m+[0m[0m from_port              = 80
+      [32m+[0m[0m id                     = (known after apply)
+      [32m+[0m[0m ip_protocol            = "tcp"
+      [32m+[0m[0m security_group_id      = (known after apply)
+      [32m+[0m[0m security_group_rule_id = (known after apply)
+      [32m+[0m[0m tags_all               = {}
+      [32m+[0m[0m to_port                = 80
+    }
+
+[1m  # aws_vpc_security_group_ingress_rule.ecs_from_alb_frontend[0m will be created
+[0m  [32m+[0m[0m resource "aws_vpc_security_group_ingress_rule" "ecs_from_alb_frontend" {
+      [32m+[0m[0m arn                          = (known after apply)
+      [32m+[0m[0m from_port                    = 8080
+      [32m+[0m[0m id                           = (known after apply)
+      [32m+[0m[0m ip_protocol                  = "tcp"
+      [32m+[0m[0m referenced_security_group_id = (known after apply)
+      [32m+[0m[0m security_group_id            = (known after apply)
+      [32m+[0m[0m security_group_rule_id       = (known after apply)
+      [32m+[0m[0m tags_all                     = {}
+      [32m+[0m[0m to_port                      = 8080
+    }
+
+[1m  # aws_vpc_security_group_ingress_rule.ecs_self_all_tcp[0m will be created
+[0m  [32m+[0m[0m resource "aws_vpc_security_group_ingress_rule" "ecs_self_all_tcp" {
+      [32m+[0m[0m arn                          = (known after apply)
+      [32m+[0m[0m from_port                    = 0
+      [32m+[0m[0m id                           = (known after apply)
+      [32m+[0m[0m ip_protocol                  = "tcp"
+      [32m+[0m[0m referenced_security_group_id = (known after apply)
+      [32m+[0m[0m security_group_id            = (known after apply)
+      [32m+[0m[0m security_group_rule_id       = (known after apply)
+      [32m+[0m[0m tags_all                     = {}
+      [32m+[0m[0m to_port                      = 65535
+    }
+
+[1m  # module.alb.aws_lb.this[0m will be created
+[0m  [32m+[0m[0m resource "aws_lb" "this" {
+      [32m+[0m[0m arn                                                          = (known after apply)
+      [32m+[0m[0m arn_suffix                                                   = (known after apply)
+      [32m+[0m[0m client_keep_alive                                            = 3600
+      [32m+[0m[0m desync_mitigation_mode                                       = "defensive"
+      [32m+[0m[0m dns_name                                                     = (known after apply)
+      [32m+[0m[0m drop_invalid_header_fields                                   = false
+      [32m+[0m[0m enable_deletion_protection                                   = false
+      [32m+[0m[0m enable_http2                                                 = true
+      [32m+[0m[0m enable_tls_version_and_cipher_suite_headers                  = false
+      [32m+[0m[0m enable_waf_fail_open                                         = false
+      [32m+[0m[0m enable_xff_client_port                                       = false
+      [32m+[0m[0m enable_zonal_shift                                           = false
+      [32m+[0m[0m enforce_security_group_inbound_rules_on_private_link_traffic = (known after apply)
+      [32m+[0m[0m id                                                           = (known after apply)
+      [32m+[0m[0m idle_timeout                                                 = 60
+      [32m+[0m[0m internal                                                     = false
+      [32m+[0m[0m ip_address_type                                              = (known after apply)
+      [32m+[0m[0m load_balancer_type                                           = "application"
+      [32m+[0m[0m name                                                         = "kriszboutique-alb-dev"
+      [32m+[0m[0m name_prefix                                                  = (known after apply)
+      [32m+[0m[0m preserve_host_header                                         = false
+      [32m+[0m[0m security_groups                                              = (known after apply)
+      [32m+[0m[0m subnets                                                      = (known after apply)
+      [32m+[0m[0m tags                                                         = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "kriszboutique-alb-dev"
+          [32m+[0m[0m "Project"     = "project_thesis"
+        }
+      [32m+[0m[0m tags_all                                                     = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "kriszboutique-alb-dev"
+          [32m+[0m[0m "Project"     = "project_thesis"
+        }
+      [32m+[0m[0m vpc_id                                                       = (known after apply)
+      [32m+[0m[0m xff_header_processing_mode                                   = "append"
+      [32m+[0m[0m zone_id                                                      = (known after apply)
+
+      [32m+[0m[0m subnet_mapping (known after apply)
+    }
+
+[1m  # module.ecr["adservice"].aws_ecr_lifecycle_policy.this[0m will be created
+[0m  [32m+[0m[0m resource "aws_ecr_lifecycle_policy" "this" {
+      [32m+[0m[0m id          = (known after apply)
+      [32m+[0m[0m policy      = jsonencode(
+            {
+              [32m+[0m[0m rules = [
+                  [32m+[0m[0m {
+                      [32m+[0m[0m action       = {
+                          [32m+[0m[0m type = "expire"
+                        }
+                      [32m+[0m[0m description  = "Keep last 10 images"
+                      [32m+[0m[0m rulePriority = 1
+                      [32m+[0m[0m selection    = {
+                          [32m+[0m[0m countNumber = 10
+                          [32m+[0m[0m countType   = "imageCountMoreThan"
+                          [32m+[0m[0m tagStatus   = "any"
+                        }
+                    },
+                ]
+            }
+        )
+      [32m+[0m[0m registry_id = (known after apply)
+      [32m+[0m[0m repository  = "adservice-dev"
+    }
+
+[1m  # module.ecr["adservice"].aws_ecr_repository.this[0m will be created
+[0m  [32m+[0m[0m resource "aws_ecr_repository" "this" {
+      [32m+[0m[0m arn                  = (known after apply)
+      [32m+[0m[0m id                   = (known after apply)
+      [32m+[0m[0m image_tag_mutability = "MUTABLE"
+      [32m+[0m[0m name                 = "adservice-dev"
+      [32m+[0m[0m registry_id          = (known after apply)
+      [32m+[0m[0m repository_url       = (known after apply)
+      [32m+[0m[0m tags                 = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "kriszboutique-ecr-dev"
+          [32m+[0m[0m "Project"     = "project_thesis"
+        }
+      [32m+[0m[0m tags_all             = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "kriszboutique-ecr-dev"
+          [32m+[0m[0m "Project"     = "project_thesis"
+        }
+    }
+
+[1m  # module.ecr["cartservice"].aws_ecr_lifecycle_policy.this[0m will be created
+[0m  [32m+[0m[0m resource "aws_ecr_lifecycle_policy" "this" {
+      [32m+[0m[0m id          = (known after apply)
+      [32m+[0m[0m policy      = jsonencode(
+            {
+              [32m+[0m[0m rules = [
+                  [32m+[0m[0m {
+                      [32m+[0m[0m action       = {
+                          [32m+[0m[0m type = "expire"
+                        }
+                      [32m+[0m[0m description  = "Keep last 10 images"
+                      [32m+[0m[0m rulePriority = 1
+                      [32m+[0m[0m selection    = {
+                          [32m+[0m[0m countNumber = 10
+                          [32m+[0m[0m countType   = "imageCountMoreThan"
+                          [32m+[0m[0m tagStatus   = "any"
+                        }
+                    },
+                ]
+            }
+        )
+      [32m+[0m[0m registry_id = (known after apply)
+      [32m+[0m[0m repository  = "cartservice-dev"
+    }
+
+[1m  # module.ecr["cartservice"].aws_ecr_repository.this[0m will be created
+[0m  [32m+[0m[0m resource "aws_ecr_repository" "this" {
+      [32m+[0m[0m arn                  = (known after apply)
+      [32m+[0m[0m id                   = (known after apply)
+      [32m+[0m[0m image_tag_mutability = "MUTABLE"
+      [32m+[0m[0m name                 = "cartservice-dev"
+      [32m+[0m[0m registry_id          = (known after apply)
+      [32m+[0m[0m repository_url       = (known after apply)
+      [32m+[0m[0m tags                 = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "kriszboutique-ecr-dev"
+          [32m+[0m[0m "Project"     = "project_thesis"
+        }
+      [32m+[0m[0m tags_all             = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "kriszboutique-ecr-dev"
+          [32m+[0m[0m "Project"     = "project_thesis"
+        }
+    }
+
+[1m  # module.ecr["checkoutservice"].aws_ecr_lifecycle_policy.this[0m will be created
+[0m  [32m+[0m[0m resource "aws_ecr_lifecycle_policy" "this" {
+      [32m+[0m[0m id          = (known after apply)
+      [32m+[0m[0m policy      = jsonencode(
+            {
+              [32m+[0m[0m rules = [
+                  [32m+[0m[0m {
+                      [32m+[0m[0m action       = {
+                          [32m+[0m[0m type = "expire"
+                        }
+                      [32m+[0m[0m description  = "Keep last 10 images"
+                      [32m+[0m[0m rulePriority = 1
+                      [32m+[0m[0m selection    = {
+                          [32m+[0m[0m countNumber = 10
+                          [32m+[0m[0m countType   = "imageCountMoreThan"
+                          [32m+[0m[0m tagStatus   = "any"
+                        }
+                    },
+                ]
+            }
+        )
+      [32m+[0m[0m registry_id = (known after apply)
+      [32m+[0m[0m repository  = "checkoutservice-dev"
+    }
+
+[1m  # module.ecr["checkoutservice"].aws_ecr_repository.this[0m will be created
+[0m  [32m+[0m[0m resource "aws_ecr_repository" "this" {
+      [32m+[0m[0m arn                  = (known after apply)
+      [32m+[0m[0m id                   = (known after apply)
+      [32m+[0m[0m image_tag_mutability = "MUTABLE"
+      [32m+[0m[0m name                 = "checkoutservice-dev"
+      [32m+[0m[0m registry_id          = (known after apply)
+      [32m+[0m[0m repository_url       = (known after apply)
+      [32m+[0m[0m tags                 = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "kriszboutique-ecr-dev"
+          [32m+[0m[0m "Project"     = "project_thesis"
+        }
+      [32m+[0m[0m tags_all             = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "kriszboutique-ecr-dev"
+          [32m+[0m[0m "Project"     = "project_thesis"
+        }
+    }
+
+[1m  # module.ecr["currencyservice"].aws_ecr_lifecycle_policy.this[0m will be created
+[0m  [32m+[0m[0m resource "aws_ecr_lifecycle_policy" "this" {
+      [32m+[0m[0m id          = (known after apply)
+      [32m+[0m[0m policy      = jsonencode(
+            {
+              [32m+[0m[0m rules = [
+                  [32m+[0m[0m {
+                      [32m+[0m[0m action       = {
+                          [32m+[0m[0m type = "expire"
+                        }
+                      [32m+[0m[0m description  = "Keep last 10 images"
+                      [32m+[0m[0m rulePriority = 1
+                      [32m+[0m[0m selection    = {
+                          [32m+[0m[0m countNumber = 10
+                          [32m+[0m[0m countType   = "imageCountMoreThan"
+                          [32m+[0m[0m tagStatus   = "any"
+                        }
+                    },
+                ]
+            }
+        )
+      [32m+[0m[0m registry_id = (known after apply)
+      [32m+[0m[0m repository  = "currencyservice-dev"
+    }
+
+[1m  # module.ecr["currencyservice"].aws_ecr_repository.this[0m will be created
+[0m  [32m+[0m[0m resource "aws_ecr_repository" "this" {
+      [32m+[0m[0m arn                  = (known after apply)
+      [32m+[0m[0m id                   = (known after apply)
+      [32m+[0m[0m image_tag_mutability = "MUTABLE"
+      [32m+[0m[0m name                 = "currencyservice-dev"
+      [32m+[0m[0m registry_id          = (known after apply)
+      [32m+[0m[0m repository_url       = (known after apply)
+      [32m+[0m[0m tags                 = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "kriszboutique-ecr-dev"
+          [32m+[0m[0m "Project"     = "project_thesis"
+        }
+      [32m+[0m[0m tags_all             = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "kriszboutique-ecr-dev"
+          [32m+[0m[0m "Project"     = "project_thesis"
+        }
+    }
+
+[1m  # module.ecr["emailservice"].aws_ecr_lifecycle_policy.this[0m will be created
+[0m  [32m+[0m[0m resource "aws_ecr_lifecycle_policy" "this" {
+      [32m+[0m[0m id          = (known after apply)
+      [32m+[0m[0m policy      = jsonencode(
+            {
+              [32m+[0m[0m rules = [
+                  [32m+[0m[0m {
+                      [32m+[0m[0m action       = {
+                          [32m+[0m[0m type = "expire"
+                        }
+                      [32m+[0m[0m description  = "Keep last 10 images"
+                      [32m+[0m[0m rulePriority = 1
+                      [32m+[0m[0m selection    = {
+                          [32m+[0m[0m countNumber = 10
+                          [32m+[0m[0m countType   = "imageCountMoreThan"
+                          [32m+[0m[0m tagStatus   = "any"
+                        }
+                    },
+                ]
+            }
+        )
+      [32m+[0m[0m registry_id = (known after apply)
+      [32m+[0m[0m repository  = "emailservice-dev"
+    }
+
+[1m  # module.ecr["emailservice"].aws_ecr_repository.this[0m will be created
+[0m  [32m+[0m[0m resource "aws_ecr_repository" "this" {
+      [32m+[0m[0m arn                  = (known after apply)
+      [32m+[0m[0m id                   = (known after apply)
+      [32m+[0m[0m image_tag_mutability = "MUTABLE"
+      [32m+[0m[0m name                 = "emailservice-dev"
+      [32m+[0m[0m registry_id          = (known after apply)
+      [32m+[0m[0m repository_url       = (known after apply)
+      [32m+[0m[0m tags                 = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "kriszboutique-ecr-dev"
+          [32m+[0m[0m "Project"     = "project_thesis"
+        }
+      [32m+[0m[0m tags_all             = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "kriszboutique-ecr-dev"
+          [32m+[0m[0m "Project"     = "project_thesis"
+        }
+    }
+
+[1m  # module.ecr["frontend"].aws_ecr_lifecycle_policy.this[0m will be created
+[0m  [32m+[0m[0m resource "aws_ecr_lifecycle_policy" "this" {
+      [32m+[0m[0m id          = (known after apply)
+      [32m+[0m[0m policy      = jsonencode(
+            {
+              [32m+[0m[0m rules = [
+                  [32m+[0m[0m {
+                      [32m+[0m[0m action       = {
+                          [32m+[0m[0m type = "expire"
+                        }
+                      [32m+[0m[0m description  = "Keep last 10 images"
+                      [32m+[0m[0m rulePriority = 1
+                      [32m+[0m[0m selection    = {
+                          [32m+[0m[0m countNumber = 10
+                          [32m+[0m[0m countType   = "imageCountMoreThan"
+                          [32m+[0m[0m tagStatus   = "any"
+                        }
+                    },
+                ]
+            }
+        )
+      [32m+[0m[0m registry_id = (known after apply)
+      [32m+[0m[0m repository  = "frontend-dev"
+    }
+
+[1m  # module.ecr["frontend"].aws_ecr_repository.this[0m will be created
+[0m  [32m+[0m[0m resource "aws_ecr_repository" "this" {
+      [32m+[0m[0m arn                  = (known after apply)
+      [32m+[0m[0m id                   = (known after apply)
+      [32m+[0m[0m image_tag_mutability = "MUTABLE"
+      [32m+[0m[0m name                 = "frontend-dev"
+      [32m+[0m[0m registry_id          = (known after apply)
+      [32m+[0m[0m repository_url       = (known after apply)
+      [32m+[0m[0m tags                 = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "kriszboutique-ecr-dev"
+          [32m+[0m[0m "Project"     = "project_thesis"
+        }
+      [32m+[0m[0m tags_all             = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "kriszboutique-ecr-dev"
+          [32m+[0m[0m "Project"     = "project_thesis"
+        }
+    }
+
+[1m  # module.ecr["loadgenerator"].aws_ecr_lifecycle_policy.this[0m will be created
+[0m  [32m+[0m[0m resource "aws_ecr_lifecycle_policy" "this" {
+      [32m+[0m[0m id          = (known after apply)
+      [32m+[0m[0m policy      = jsonencode(
+            {
+              [32m+[0m[0m rules = [
+                  [32m+[0m[0m {
+                      [32m+[0m[0m action       = {
+                          [32m+[0m[0m type = "expire"
+                        }
+                      [32m+[0m[0m description  = "Keep last 10 images"
+                      [32m+[0m[0m rulePriority = 1
+                      [32m+[0m[0m selection    = {
+                          [32m+[0m[0m countNumber = 10
+                          [32m+[0m[0m countType   = "imageCountMoreThan"
+                          [32m+[0m[0m tagStatus   = "any"
+                        }
+                    },
+                ]
+            }
+        )
+      [32m+[0m[0m registry_id = (known after apply)
+      [32m+[0m[0m repository  = "loadgenerator-dev"
+    }
+
+[1m  # module.ecr["loadgenerator"].aws_ecr_repository.this[0m will be created
+[0m  [32m+[0m[0m resource "aws_ecr_repository" "this" {
+      [32m+[0m[0m arn                  = (known after apply)
+      [32m+[0m[0m id                   = (known after apply)
+      [32m+[0m[0m image_tag_mutability = "MUTABLE"
+      [32m+[0m[0m name                 = "loadgenerator-dev"
+      [32m+[0m[0m registry_id          = (known after apply)
+      [32m+[0m[0m repository_url       = (known after apply)
+      [32m+[0m[0m tags                 = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "kriszboutique-ecr-dev"
+          [32m+[0m[0m "Project"     = "project_thesis"
+        }
+      [32m+[0m[0m tags_all             = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "kriszboutique-ecr-dev"
+          [32m+[0m[0m "Project"     = "project_thesis"
+        }
+    }
+
+[1m  # module.ecr["paymentservice"].aws_ecr_lifecycle_policy.this[0m will be created
+[0m  [32m+[0m[0m resource "aws_ecr_lifecycle_policy" "this" {
+      [32m+[0m[0m id          = (known after apply)
+      [32m+[0m[0m policy      = jsonencode(
+            {
+              [32m+[0m[0m rules = [
+                  [32m+[0m[0m {
+                      [32m+[0m[0m action       = {
+                          [32m+[0m[0m type = "expire"
+                        }
+                      [32m+[0m[0m description  = "Keep last 10 images"
+                      [32m+[0m[0m rulePriority = 1
+                      [32m+[0m[0m selection    = {
+                          [32m+[0m[0m countNumber = 10
+                          [32m+[0m[0m countType   = "imageCountMoreThan"
+                          [32m+[0m[0m tagStatus   = "any"
+                        }
+                    },
+                ]
+            }
+        )
+      [32m+[0m[0m registry_id = (known after apply)
+      [32m+[0m[0m repository  = "paymentservice-dev"
+    }
+
+[1m  # module.ecr["paymentservice"].aws_ecr_repository.this[0m will be created
+[0m  [32m+[0m[0m resource "aws_ecr_repository" "this" {
+      [32m+[0m[0m arn                  = (known after apply)
+      [32m+[0m[0m id                   = (known after apply)
+      [32m+[0m[0m image_tag_mutability = "MUTABLE"
+      [32m+[0m[0m name                 = "paymentservice-dev"
+      [32m+[0m[0m registry_id          = (known after apply)
+      [32m+[0m[0m repository_url       = (known after apply)
+      [32m+[0m[0m tags                 = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "kriszboutique-ecr-dev"
+          [32m+[0m[0m "Project"     = "project_thesis"
+        }
+      [32m+[0m[0m tags_all             = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "kriszboutique-ecr-dev"
+          [32m+[0m[0m "Project"     = "project_thesis"
+        }
+    }
+
+[1m  # module.ecr["productcatalogservice"].aws_ecr_lifecycle_policy.this[0m will be created
+[0m  [32m+[0m[0m resource "aws_ecr_lifecycle_policy" "this" {
+      [32m+[0m[0m id          = (known after apply)
+      [32m+[0m[0m policy      = jsonencode(
+            {
+              [32m+[0m[0m rules = [
+                  [32m+[0m[0m {
+                      [32m+[0m[0m action       = {
+                          [32m+[0m[0m type = "expire"
+                        }
+                      [32m+[0m[0m description  = "Keep last 10 images"
+                      [32m+[0m[0m rulePriority = 1
+                      [32m+[0m[0m selection    = {
+                          [32m+[0m[0m countNumber = 10
+                          [32m+[0m[0m countType   = "imageCountMoreThan"
+                          [32m+[0m[0m tagStatus   = "any"
+                        }
+                    },
+                ]
+            }
+        )
+      [32m+[0m[0m registry_id = (known after apply)
+      [32m+[0m[0m repository  = "productcatalogservice-dev"
+    }
+
+[1m  # module.ecr["productcatalogservice"].aws_ecr_repository.this[0m will be created
+[0m  [32m+[0m[0m resource "aws_ecr_repository" "this" {
+      [32m+[0m[0m arn                  = (known after apply)
+      [32m+[0m[0m id                   = (known after apply)
+      [32m+[0m[0m image_tag_mutability = "MUTABLE"
+      [32m+[0m[0m name                 = "productcatalogservice-dev"
+      [32m+[0m[0m registry_id          = (known after apply)
+      [32m+[0m[0m repository_url       = (known after apply)
+      [32m+[0m[0m tags                 = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "kriszboutique-ecr-dev"
+          [32m+[0m[0m "Project"     = "project_thesis"
+        }
+      [32m+[0m[0m tags_all             = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "kriszboutique-ecr-dev"
+          [32m+[0m[0m "Project"     = "project_thesis"
+        }
+    }
+
+[1m  # module.ecr["shippingservice"].aws_ecr_lifecycle_policy.this[0m will be created
+[0m  [32m+[0m[0m resource "aws_ecr_lifecycle_policy" "this" {
+      [32m+[0m[0m id          = (known after apply)
+      [32m+[0m[0m policy      = jsonencode(
+            {
+              [32m+[0m[0m rules = [
+                  [32m+[0m[0m {
+                      [32m+[0m[0m action       = {
+                          [32m+[0m[0m type = "expire"
+                        }
+                      [32m+[0m[0m description  = "Keep last 10 images"
+                      [32m+[0m[0m rulePriority = 1
+                      [32m+[0m[0m selection    = {
+                          [32m+[0m[0m countNumber = 10
+                          [32m+[0m[0m countType   = "imageCountMoreThan"
+                          [32m+[0m[0m tagStatus   = "any"
+                        }
+                    },
+                ]
+            }
+        )
+      [32m+[0m[0m registry_id = (known after apply)
+      [32m+[0m[0m repository  = "shippingservice-dev"
+    }
+
+[1m  # module.ecr["shippingservice"].aws_ecr_repository.this[0m will be created
+[0m  [32m+[0m[0m resource "aws_ecr_repository" "this" {
+      [32m+[0m[0m arn                  = (known after apply)
+      [32m+[0m[0m id                   = (known after apply)
+      [32m+[0m[0m image_tag_mutability = "MUTABLE"
+      [32m+[0m[0m name                 = "shippingservice-dev"
+      [32m+[0m[0m registry_id          = (known after apply)
+      [32m+[0m[0m repository_url       = (known after apply)
+      [32m+[0m[0m tags                 = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "kriszboutique-ecr-dev"
+          [32m+[0m[0m "Project"     = "project_thesis"
+        }
+      [32m+[0m[0m tags_all             = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "kriszboutique-ecr-dev"
+          [32m+[0m[0m "Project"     = "project_thesis"
+        }
+    }
+
+[1m  # module.ecs_cluster.aws_ecs_cluster.this[0m will be created
+[0m  [32m+[0m[0m resource "aws_ecs_cluster" "this" {
+      [32m+[0m[0m arn      = (known after apply)
+      [32m+[0m[0m id       = (known after apply)
+      [32m+[0m[0m name     = "kriszboutique-cluster-dev"
+      [32m+[0m[0m tags     = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "kriszboutique-cluster-dev"
+          [32m+[0m[0m "Project"     = "project_thesis"
+        }
+      [32m+[0m[0m tags_all = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "kriszboutique-cluster-dev"
+          [32m+[0m[0m "Project"     = "project_thesis"
+        }
+
+      [32m+[0m[0m setting {
+          [32m+[0m[0m name  = "containerInsights"
+          [32m+[0m[0m value = "enabled"
+        }
+    }
+
+[1m  # module.ecs_cluster.aws_ecs_cluster_capacity_providers.this[0m will be created
+[0m  [32m+[0m[0m resource "aws_ecs_cluster_capacity_providers" "this" {
+      [32m+[0m[0m capacity_providers = [
+          [32m+[0m[0m "FARGATE",
+        ]
+      [32m+[0m[0m cluster_name       = "kriszboutique-cluster-dev"
+      [32m+[0m[0m id                 = (known after apply)
+
+      [32m+[0m[0m default_capacity_provider_strategy {
+          [32m+[0m[0m base              = 1
+          [32m+[0m[0m capacity_provider = "FARGATE"
+          [32m+[0m[0m weight            = 1
+        }
+    }
+
+[1m  # module.ecs_task_definition.aws_ecs_task_definition.this[0m will be created
+[0m  [32m+[0m[0m resource "aws_ecs_task_definition" "this" {
+      [32m+[0m[0m arn                      = (known after apply)
+      [32m+[0m[0m arn_without_revision     = (known after apply)
+      [32m+[0m[0m container_definitions    = jsonencode(
+            [
+              [32m+[0m[0m {
+                  [32m+[0m[0m environment      = [
+                      [32m+[0m[0m {
+                          [32m+[0m[0m name  = "DISABLE_PROFILER"
+                          [32m+[0m[0m value = "true"
+                        },
+                      [32m+[0m[0m {
+                          [32m+[0m[0m name  = "DISABLE_TRACING"
+                          [32m+[0m[0m value = "true"
+                        },
+                      [32m+[0m[0m {
+                          [32m+[0m[0m name  = "PORT"
+                          [32m+[0m[0m value = "9555"
+                        },
+                    ]
+                  [32m+[0m[0m environmentFiles = []
+                  [32m+[0m[0m essential        = true
+                  [32m+[0m[0m image            = "324037277205.dkr.ecr.eu-north-1.amazonaws.com/adservice@sha256:3fb07a86312fc2d0feab4c9605d380469872979557ee19c37c9e1dd23513c7d1"
+                  [32m+[0m[0m logConfiguration = {
+                      [32m+[0m[0m logDriver     = "awslogs"
+                      [32m+[0m[0m options       = {
+                          [32m+[0m[0m awslogs-create-group  = "true"
+                          [32m+[0m[0m awslogs-group         = "/ecs/adservice"
+                          [32m+[0m[0m awslogs-region        = "eu-north-1"
+                          [32m+[0m[0m awslogs-stream-prefix = "ecs"
+                        }
+                      [32m+[0m[0m secretOptions = []
+                    }
+                  [32m+[0m[0m mountPoints      = []
+                  [32m+[0m[0m name             = "adservice"
+                  [32m+[0m[0m portMappings     = [
+                      [32m+[0m[0m {
+                          [32m+[0m[0m appProtocol   = "http"
+                          [32m+[0m[0m containerPort = 9555
+                          [32m+[0m[0m hostPort      = 9555
+                          [32m+[0m[0m name          = "adservice-9555-tcp"
+                          [32m+[0m[0m protocol      = "tcp"
+                        },
+                    ]
+                  [32m+[0m[0m systemControls   = []
+                  [32m+[0m[0m ulimits          = []
+                  [32m+[0m[0m volumesFrom      = []
+                },
+            ]
+        )
+      [32m+[0m[0m cpu                      = "256"
+      [32m+[0m[0m enable_fault_injection   = (known after apply)
+      [32m+[0m[0m execution_role_arn       = (known after apply)
+      [32m+[0m[0m family                   = "adservice-dev"
+      [32m+[0m[0m id                       = (known after apply)
+      [32m+[0m[0m memory                   = "512"
+      [32m+[0m[0m network_mode             = "awsvpc"
+      [32m+[0m[0m requires_compatibilities = [
+          [32m+[0m[0m "FARGATE",
+        ]
+      [32m+[0m[0m revision                 = (known after apply)
+      [32m+[0m[0m skip_destroy             = false
+      [32m+[0m[0m tags_all                 = (known after apply)
+      [32m+[0m[0m task_role_arn            = (known after apply)
+      [32m+[0m[0m track_latest             = false
+    }
+
+[1m  # module.network.aws_internet_gateway.this[0m will be created
+[0m  [32m+[0m[0m resource "aws_internet_gateway" "this" {
+      [32m+[0m[0m arn      = (known after apply)
+      [32m+[0m[0m id       = (known after apply)
+      [32m+[0m[0m owner_id = (known after apply)
+      [32m+[0m[0m tags     = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "kriszboutique-igw"
+          [32m+[0m[0m "Project"     = "project_thesis"
+        }
+      [32m+[0m[0m tags_all = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "kriszboutique-igw"
+          [32m+[0m[0m "Project"     = "project_thesis"
+        }
+      [32m+[0m[0m vpc_id   = (known after apply)
+    }
+
+[1m  # module.network.aws_route.internet_access[0m will be created
+[0m  [32m+[0m[0m resource "aws_route" "internet_access" {
+      [32m+[0m[0m destination_cidr_block = "0.0.0.0/0"
+      [32m+[0m[0m gateway_id             = (known after apply)
+      [32m+[0m[0m id                     = (known after apply)
+      [32m+[0m[0m instance_id            = (known after apply)
+      [32m+[0m[0m instance_owner_id      = (known after apply)
+      [32m+[0m[0m network_interface_id   = (known after apply)
+      [32m+[0m[0m origin                 = (known after apply)
+      [32m+[0m[0m route_table_id         = (known after apply)
+      [32m+[0m[0m state                  = (known after apply)
+    }
+
+[1m  # module.network.aws_route_table.public[0m will be created
+[0m  [32m+[0m[0m resource "aws_route_table" "public" {
+      [32m+[0m[0m arn              = (known after apply)
+      [32m+[0m[0m id               = (known after apply)
+      [32m+[0m[0m owner_id         = (known after apply)
+      [32m+[0m[0m propagating_vgws = (known after apply)
+      [32m+[0m[0m route            = (known after apply)
+      [32m+[0m[0m tags             = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "kriszboutique-public-rt"
+          [32m+[0m[0m "Project"     = "project_thesis"
+        }
+      [32m+[0m[0m tags_all         = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "kriszboutique-public-rt"
+          [32m+[0m[0m "Project"     = "project_thesis"
+        }
+      [32m+[0m[0m vpc_id           = (known after apply)
+    }
+
+[1m  # module.network.aws_route_table_association.public[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_route_table_association" "public" {
+      [32m+[0m[0m id             = (known after apply)
+      [32m+[0m[0m route_table_id = (known after apply)
+      [32m+[0m[0m subnet_id      = (known after apply)
+    }
+
+[1m  # module.network.aws_route_table_association.public[1][0m will be created
+[0m  [32m+[0m[0m resource "aws_route_table_association" "public" {
+      [32m+[0m[0m id             = (known after apply)
+      [32m+[0m[0m route_table_id = (known after apply)
+      [32m+[0m[0m subnet_id      = (known after apply)
+    }
+
+[1m  # module.network.aws_subnet.public[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_subnet" "public" {
+      [32m+[0m[0m arn                                            = (known after apply)
+      [32m+[0m[0m assign_ipv6_address_on_creation                = false
+      [32m+[0m[0m availability_zone                              = "eu-north-1a"
+      [32m+[0m[0m availability_zone_id                           = (known after apply)
+      [32m+[0m[0m cidr_block                                     = "10.0.1.0/24"
+      [32m+[0m[0m enable_dns64                                   = false
+      [32m+[0m[0m enable_resource_name_dns_a_record_on_launch    = false
+      [32m+[0m[0m enable_resource_name_dns_aaaa_record_on_launch = false
+      [32m+[0m[0m id                                             = (known after apply)
+      [32m+[0m[0m ipv6_cidr_block_association_id                 = (known after apply)
+      [32m+[0m[0m ipv6_native                                    = false
+      [32m+[0m[0m map_public_ip_on_launch                        = true
+      [32m+[0m[0m owner_id                                       = (known after apply)
+      [32m+[0m[0m private_dns_hostname_type_on_launch            = (known after apply)
+      [32m+[0m[0m tags                                           = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "kriszboutique-public-1"
+          [32m+[0m[0m "Project"     = "project_thesis"
+        }
+      [32m+[0m[0m tags_all                                       = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "kriszboutique-public-1"
+          [32m+[0m[0m "Project"     = "project_thesis"
+        }
+      [32m+[0m[0m vpc_id                                         = (known after apply)
+    }
+
+[1m  # module.network.aws_subnet.public[1][0m will be created
+[0m  [32m+[0m[0m resource "aws_subnet" "public" {
+      [32m+[0m[0m arn                                            = (known after apply)
+      [32m+[0m[0m assign_ipv6_address_on_creation                = false
+      [32m+[0m[0m availability_zone                              = "eu-north-1b"
+      [32m+[0m[0m availability_zone_id                           = (known after apply)
+      [32m+[0m[0m cidr_block                                     = "10.0.2.0/24"
+      [32m+[0m[0m enable_dns64                                   = false
+      [32m+[0m[0m enable_resource_name_dns_a_record_on_launch    = false
+      [32m+[0m[0m enable_resource_name_dns_aaaa_record_on_launch = false
+      [32m+[0m[0m id                                             = (known after apply)
+      [32m+[0m[0m ipv6_cidr_block_association_id                 = (known after apply)
+      [32m+[0m[0m ipv6_native                                    = false
+      [32m+[0m[0m map_public_ip_on_launch                        = true
+      [32m+[0m[0m owner_id                                       = (known after apply)
+      [32m+[0m[0m private_dns_hostname_type_on_launch            = (known after apply)
+      [32m+[0m[0m tags                                           = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "kriszboutique-public-2"
+          [32m+[0m[0m "Project"     = "project_thesis"
+        }
+      [32m+[0m[0m tags_all                                       = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "kriszboutique-public-2"
+          [32m+[0m[0m "Project"     = "project_thesis"
+        }
+      [32m+[0m[0m vpc_id                                         = (known after apply)
+    }
+
+[1m  # module.network.aws_vpc.this[0m will be created
+[0m  [32m+[0m[0m resource "aws_vpc" "this" {
+      [32m+[0m[0m arn                                  = (known after apply)
+      [32m+[0m[0m cidr_block                           = "10.0.0.0/16"
+      [32m+[0m[0m default_network_acl_id               = (known after apply)
+      [32m+[0m[0m default_route_table_id               = (known after apply)
+      [32m+[0m[0m default_security_group_id            = (known after apply)
+      [32m+[0m[0m dhcp_options_id                      = (known after apply)
+      [32m+[0m[0m enable_dns_hostnames                 = true
+      [32m+[0m[0m enable_dns_support                   = true
+      [32m+[0m[0m enable_network_address_usage_metrics = (known after apply)
+      [32m+[0m[0m id                                   = (known after apply)
+      [32m+[0m[0m instance_tenancy                     = "default"
+      [32m+[0m[0m ipv6_association_id                  = (known after apply)
+      [32m+[0m[0m ipv6_cidr_block                      = (known after apply)
+      [32m+[0m[0m ipv6_cidr_block_network_border_group = (known after apply)
+      [32m+[0m[0m main_route_table_id                  = (known after apply)
+      [32m+[0m[0m owner_id                             = (known after apply)
+      [32m+[0m[0m tags                                 = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "kriszboutique-vpc"
+          [32m+[0m[0m "Project"     = "project_thesis"
+        }
+      [32m+[0m[0m tags_all                             = {
+          [32m+[0m[0m "Environment" = "dev"
+          [32m+[0m[0m "Name"        = "kriszboutique-vpc"
+          [32m+[0m[0m "Project"     = "project_thesis"
+        }
+    }
+
+[1mPlan:[0m 44 to add, 0 to change, 0 to destroy.
+[0m
+Changes to Outputs:
+  [32m+[0m[0m execution_role_arn = (known after apply)
+  [32m+[0m[0m task_role_arn      = (known after apply)

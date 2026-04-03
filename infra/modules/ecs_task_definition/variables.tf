@@ -16,6 +16,16 @@ variable "task_role_arn" {
   
 }
 
+variable "cpu" {
+  type = string
+  default = "256"
+}
+
+variable "memory" {
+  type = string
+  default = "512"
+}
+
 # example jsonencode([
 #     {
 #       name      = var.name

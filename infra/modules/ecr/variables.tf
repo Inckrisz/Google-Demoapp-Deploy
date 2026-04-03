@@ -2,11 +2,17 @@ variable "ecr_repository_name" {
   type = string
 }
 
-variable "all_tags" {
-    type = map()
-    default = {
-        Name        = "var.ecr_repository_name"
-        Environment = "shared"
-        Project     = "aws-thesis"
-    }
+variable "name_prefix" {
+  description = "Prefix for the ECR Repository name"
+  type        = string
+}
+
+variable "environment" {
+  description = "Environment tag (e.g., dev, staging, prod)"
+  type        = string
+}
+
+variable "project" {
+  description = "Project name for tags"
+  type = string
 }

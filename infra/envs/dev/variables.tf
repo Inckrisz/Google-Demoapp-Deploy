@@ -7,11 +7,13 @@ variable "name_prefix" {
 variable "environment" {
   description = "Environment tag (e.g., dev, staging, prod)"
   type        = string
+  default     = "dev"
 }
 
 variable "project" {
   description = "Project name for tags"
   type = string
+  default = "project_thesis"
 }
 
 variable "aws_region" {
@@ -22,4 +24,9 @@ variable "aws_region" {
 variable "aws_profile" {
   type    = string
   default = "thesis"
+}
+
+variable "domain_name" {
+  type = string
+  default = null
 }
