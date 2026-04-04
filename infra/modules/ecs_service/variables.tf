@@ -45,7 +45,8 @@ variable "security_group_ids" {
 }
 
 variable "target_group_arn" {
-  type = string
+  type = any
+  default = null
 }
 
 variable "container_name" {

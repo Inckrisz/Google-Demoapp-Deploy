@@ -791,7 +791,7 @@ module "ecs_service_adservice" {
   cluster_arn = module.ecs_cluster.cluster_arn
   subnet_ids = module.network.public_subnet_ids
   name_prefix = var.name_prefix
-  target_group_arn = 
+   
   iam_role = aws_iam_role.ecs_task_execution_role
 }
 
@@ -810,7 +810,7 @@ module "ecs_service_cartservice" {
    
   subnet_ids = module.network.public_subnet_ids
   name_prefix = var.name_prefix
-  target_group_arn = 
+   
   iam_role = aws_iam_role.ecs_task_execution_role
 }
 
@@ -829,7 +829,7 @@ module "ecs_service_checkoutservice" {
    
   subnet_ids = module.network.public_subnet_ids
   name_prefix = var.name_prefix
-  target_group_arn = 
+   
   iam_role = aws_iam_role.ecs_task_execution_role
 }
 
@@ -848,7 +848,7 @@ module "ecs_service_currencyservice" {
    
   subnet_ids = module.network.public_subnet_ids
   name_prefix = var.name_prefix
-  target_group_arn = 
+   
   iam_role = aws_iam_role.ecs_task_execution_role
 }
 
@@ -867,7 +867,7 @@ module "ecs_service_emailservice" {
    
   subnet_ids = module.network.public_subnet_ids
   name_prefix = var.name_prefix
-  target_group_arn = 
+   
   iam_role = aws_iam_role.ecs_task_execution_role
 }
 
@@ -905,7 +905,7 @@ module "ecs_service_paymentservice" {
    
   subnet_ids = module.network.public_subnet_ids
   name_prefix = var.name_prefix
-  target_group_arn = 
+   
   iam_role = aws_iam_role.ecs_task_execution_role
 }
 
@@ -924,7 +924,7 @@ module "ecs_service_productcatalogservice" {
    
   subnet_ids = module.network.public_subnet_ids
   name_prefix = var.name_prefix
-  target_group_arn = 
+   
   iam_role = aws_iam_role.ecs_task_execution_role
 }
 
@@ -943,7 +943,7 @@ module "ecs_service_recommendationservice" {
    
   subnet_ids = module.network.public_subnet_ids
   name_prefix = var.name_prefix
-  target_group_arn = 
+   
   iam_role = aws_iam_role.ecs_task_execution_role
 }
 
@@ -961,7 +961,6 @@ module "ecs_service_redis_cart" {
    
   subnet_ids = module.network.public_subnet_ids
   name_prefix = var.name_prefix
-  target_group_arn = aws_lb_target_group.frontend.arn
   iam_role = aws_iam_role.ecs_task_execution_role
 }
 
@@ -978,6 +977,5 @@ module "ecs_service_shippingservice" {
   cluster_arn = module.ecs_cluster.cluster_arn
   subnet_ids = module.network.public_subnet_ids
   name_prefix = var.name_prefix
-  target_group_arn = aws_lb_target_group.frontend.arn
   iam_role = aws_iam_role.ecs_task_execution_role
 }
