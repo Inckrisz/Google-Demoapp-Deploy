@@ -1,6 +1,11 @@
 variable "name_prefix" {
-  description = "Prefix for the ECS cluster name"
+  description = "Prefix for the ECS service name"
   type        = string
+}
+
+variable "environment" {
+  type = string
+  description = "Environment for the ECS service"
 }
 
 variable "desired_count" {
@@ -56,5 +61,15 @@ variable "desired_count" {
 }
 
 variable "listener_dependency" {
+  type    = any
+  default = null
+}
+
+variable "enable_load_balancer" {
+  type = bool
+  description = "Enable load balancer for ECS service"
+}
+
+variable "service_registry_arn" {
   
 }

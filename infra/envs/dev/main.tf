@@ -663,7 +663,7 @@ module "ecs_task_definition_recommendationservice" {
       }
     ],
     "environmentFiles": [],
-    "mountPoints": [],q
+    "mountPoints": [],
     "volumesFrom": [],
     "ulimits": [],
     "logConfiguration": {
@@ -779,14 +779,18 @@ module "ecs_task_definition_shippingservice" {
 
 module "ecs_service_adservice" {
   source = "../../modules/ecs_service"
+  environment = var.environment
+  service_registry_arn = 
+  enable_load_balancer = false
+
   container_name = "adservice"
-  container_port = 
+  container_port = 9555
   desired_count = 1
-  task_definition_arn = module.ecs_task_definition_adservice
+  task_definition_arn = module.ecs_task_definition_adservice.task_definition_arn
   security_group_ids = aws_security_group.ecs_services
   cluster_arn = module.ecs_cluster.cluster_arn
   listener_dependency = 
-  subnet_ids = var.subnet_ids
+  subnet_ids = module.network.public_subnet_ids
   name_prefix = var.name_prefix
   target_group_arn = 
   iam_role = aws_iam_role.ecs_task_execution_role
@@ -794,14 +798,18 @@ module "ecs_service_adservice" {
 
 module "ecs_service_cartservice" {
   source = "../../modules/ecs_service"
-  container_name = "adservice"
-  container_port = 
+  environment = var.environment
+  service_registry_arn = 
+  enable_load_balancer = false
+
+  container_name = "cartservice"
+  container_port = 7070
   desired_count = 1
-  task_definition_arn = module.ecs_task_definition_cartservice
+  task_definition_arn = module.ecs_task_definition_cartservice.task_definition_arn
   security_group_ids = aws_security_group.ecs_services
   cluster_arn = module.ecs_cluster.cluster_arn
   listener_dependency = 
-  subnet_ids = var.subnet_ids
+  subnet_ids = module.network.public_subnet_ids
   name_prefix = var.name_prefix
   target_group_arn = 
   iam_role = aws_iam_role.ecs_task_execution_role
@@ -809,14 +817,18 @@ module "ecs_service_cartservice" {
 
 module "ecs_service_checkoutservice" {
   source = "../../modules/ecs_service"
-  container_name = "adservice"
-  container_port = 
+  environment = var.environment
+  service_registry_arn = 
+  enable_load_balancer = false
+
+  container_name = "checkoutservice"
+  container_port = 5050
   desired_count = 1
-  task_definition_arn = module.ecs_task_definition_checkoutservice
+  task_definition_arn = module.ecs_task_definition_checkoutservice.task_definition_arn
   security_group_ids = aws_security_group.ecs_services
   cluster_arn = module.ecs_cluster.cluster_arn
   listener_dependency = 
-  subnet_ids = var.subnet_ids
+  subnet_ids = module.network.public_subnet_ids
   name_prefix = var.name_prefix
   target_group_arn = 
   iam_role = aws_iam_role.ecs_task_execution_role
@@ -824,14 +836,18 @@ module "ecs_service_checkoutservice" {
 
 module "ecs_service_currencyservice" {
   source = "../../modules/ecs_service"
-  container_name = "adservice"
-  container_port = 
+  environment = var.environment
+  service_registry_arn = 
+  enable_load_balancer = false
+
+  container_name = "currencyservice"
+  container_port = 7000
   desired_count = 1
-  task_definition_arn = module.ecs_task_definition_currencyservice
+  task_definition_arn = module.ecs_task_definition_currencyservice.task_definition_arn
   security_group_ids = aws_security_group.ecs_services
   cluster_arn = module.ecs_cluster.cluster_arn
   listener_dependency = 
-  subnet_ids = var.subnet_ids
+  subnet_ids = module.network.public_subnet_ids
   name_prefix = var.name_prefix
   target_group_arn = 
   iam_role = aws_iam_role.ecs_task_execution_role
@@ -839,14 +855,18 @@ module "ecs_service_currencyservice" {
 
 module "ecs_service_emailservice" {
   source = "../../modules/ecs_service"
-  container_name = "adservice"
-  container_port = 
+  environment = var.environment
+  service_registry_arn = 
+  enable_load_balancer = false
+
+  container_name = "emailservice"
+  container_port = 8080
   desired_count = 1
-  task_definition_arn = module.ecs_task_definition_emailservice
+  task_definition_arn = module.ecs_task_definition_emailservice.task_definition_arn
   security_group_ids = aws_security_group.ecs_services
   cluster_arn = module.ecs_cluster.cluster_arn
   listener_dependency = 
-  subnet_ids = var.subnet_ids
+  subnet_ids = module.network.public_subnet_ids
   name_prefix = var.name_prefix
   target_group_arn = 
   iam_role = aws_iam_role.ecs_task_execution_role
@@ -854,29 +874,37 @@ module "ecs_service_emailservice" {
 
 module "ecs_service_frontend" {
   source = "../../modules/ecs_service"
-  container_name = "adservice"
-  container_port = 
+  environment = var.environment
+  service_registry_arn = 
+  enable_load_balancer = true
+
+  container_name = "frontend"
+  container_port = 8080
   desired_count = 1
-  task_definition_arn = module.ecs_task_definition_frontend
+  task_definition_arn = module.ecs_task_definition_frontend.task_definition_arn
   security_group_ids = aws_security_group.ecs_services
   cluster_arn = module.ecs_cluster.cluster_arn
-  listener_dependency = 
-  subnet_ids = var.subnet_ids
+  listener_dependency = aws_lb_listener.http
+  subnet_ids = module.network.public_subnet_ids
   name_prefix = var.name_prefix
-  target_group_arn = 
+  target_group_arn = aws_lb_listener.http
   iam_role = aws_iam_role.ecs_task_execution_role
 }
 
 module "ecs_service_paymentservice" {
   source = "../../modules/ecs_service"
-  container_name = "adservice"
-  container_port = 
+  environment = var.environment
+  service_registry_arn = 
+  enable_load_balancer = false
+
+  container_name = "paymentservice"
+  container_port = 50051
   desired_count = 1
-  task_definition_arn = module.ecs_task_definition_paymentservice
+  task_definition_arn = module.ecs_task_definition_paymentservice.task_definition_arn
   security_group_ids = aws_security_group.ecs_services
   cluster_arn = module.ecs_cluster.cluster_arn
   listener_dependency = 
-  subnet_ids = var.subnet_ids
+  subnet_ids = module.network.public_subnet_ids
   name_prefix = var.name_prefix
   target_group_arn = 
   iam_role = aws_iam_role.ecs_task_execution_role
@@ -884,14 +912,18 @@ module "ecs_service_paymentservice" {
 
 module "ecs_service_productcatalogservice" {
   source = "../../modules/ecs_service"
-  container_name = "adservice"
-  container_port = 
+  environment = var.environment
+  service_registry_arn = 
+  enable_load_balancer = false
+
+  container_name = "productcatalogservice"
+  container_port = 3550
   desired_count = 1
-  task_definition_arn = module.ecs_task_definition_productcatalogservice
+  task_definition_arn = module.ecs_task_definition_productcatalogservice.task_definition_arn
   security_group_ids = aws_security_group.ecs_services
   cluster_arn = module.ecs_cluster.cluster_arn
   listener_dependency = 
-  subnet_ids = var.subnet_ids
+  subnet_ids = module.network.public_subnet_ids
   name_prefix = var.name_prefix
   target_group_arn = 
   iam_role = aws_iam_role.ecs_task_execution_role
@@ -899,30 +931,55 @@ module "ecs_service_productcatalogservice" {
 
 module "ecs_service_recommendationservice" {
   source = "../../modules/ecs_service"
-  container_name = "adservice"
-  container_port = 
+  environment = var.environment
+  service_registry_arn = 
+  enable_load_balancer = false
+
+  container_name = "recommendationservice"
+  container_port = 8080
   desired_count = 1
-  task_definition_arn = module.ecs_task_definition_recommendationservice
+  task_definition_arn = module.ecs_task_definition_recommendationservice.task_definition_arn
   security_group_ids = aws_security_group.ecs_services
   cluster_arn = module.ecs_cluster.cluster_arn
   listener_dependency = 
-  subnet_ids = var.subnet_ids
+  subnet_ids = module.network.public_subnet_ids
   name_prefix = var.name_prefix
   target_group_arn = 
   iam_role = aws_iam_role.ecs_task_execution_role
 }
 
-module "ecs_service_shippingservice" {
+module "ecs_service_redis_cart" {
   source = "../../modules/ecs_service"
-  container_name = "adservice"
-  container_port = 
+  environment = var.environment
+  service_registry_arn = 
+  enable_load_balancer = false
+  container_name = "redis_cart"
+  container_port = 6379
   desired_count = 1
-  task_definition_arn = module.ecs_task_definition_shippingservice
+  task_definition_arn = module.ecs_task_definition_redis_cart.task_definition_arn
   security_group_ids = aws_security_group.ecs_services
   cluster_arn = module.ecs_cluster.cluster_arn
   listener_dependency = 
-  subnet_ids = var.subnet_ids
+  subnet_ids = module.network.public_subnet_ids
   name_prefix = var.name_prefix
-  target_group_arn = 
+  target_group_arn = aws_lb_target_group.frontend.arn
+  iam_role = aws_iam_role.ecs_task_execution_role
+}
+
+module "ecs_service_shippingservice" {
+  source = "../../modules/ecs_service"
+  environment = var.environment
+  service_registry_arn = 
+  enable_load_balancer = false
+  container_name = "shippingservice"
+  container_port = 50051
+  desired_count = 1
+  task_definition_arn = module.ecs_task_definition_shippingservice.task_definition_arn
+  security_group_ids = aws_security_group.ecs_services
+  cluster_arn = module.ecs_cluster.cluster_arn
+  listener_dependency = aws_lb_listener.http
+  subnet_ids = module.network.public_subnet_ids
+  name_prefix = var.name_prefix
+  target_group_arn = aws_lb_target_group.frontend.arn
   iam_role = aws_iam_role.ecs_task_execution_role
 }
