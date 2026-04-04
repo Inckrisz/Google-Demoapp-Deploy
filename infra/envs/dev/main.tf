@@ -780,7 +780,7 @@ module "ecs_task_definition_shippingservice" {
 module "ecs_service_adservice" {
   source = "../../modules/ecs_service"
   environment = var.environment
-  service_registry_arn = 
+  service_registry_arn = aws_service_discovery_service.adservice
   enable_load_balancer = false
 
   container_name = "adservice"
@@ -789,7 +789,6 @@ module "ecs_service_adservice" {
   task_definition_arn = module.ecs_task_definition_adservice.task_definition_arn
   security_group_ids = aws_security_group.ecs_services
   cluster_arn = module.ecs_cluster.cluster_arn
-  listener_dependency = 
   subnet_ids = module.network.public_subnet_ids
   name_prefix = var.name_prefix
   target_group_arn = 
@@ -799,7 +798,7 @@ module "ecs_service_adservice" {
 module "ecs_service_cartservice" {
   source = "../../modules/ecs_service"
   environment = var.environment
-  service_registry_arn = 
+  service_registry_arn = aws_service_discovery_service.cartservice
   enable_load_balancer = false
 
   container_name = "cartservice"
@@ -808,7 +807,7 @@ module "ecs_service_cartservice" {
   task_definition_arn = module.ecs_task_definition_cartservice.task_definition_arn
   security_group_ids = aws_security_group.ecs_services
   cluster_arn = module.ecs_cluster.cluster_arn
-  listener_dependency = 
+   
   subnet_ids = module.network.public_subnet_ids
   name_prefix = var.name_prefix
   target_group_arn = 
@@ -818,7 +817,7 @@ module "ecs_service_cartservice" {
 module "ecs_service_checkoutservice" {
   source = "../../modules/ecs_service"
   environment = var.environment
-  service_registry_arn = 
+  service_registry_arn = aws_service_discovery_service.checkoutservice
   enable_load_balancer = false
 
   container_name = "checkoutservice"
@@ -827,7 +826,7 @@ module "ecs_service_checkoutservice" {
   task_definition_arn = module.ecs_task_definition_checkoutservice.task_definition_arn
   security_group_ids = aws_security_group.ecs_services
   cluster_arn = module.ecs_cluster.cluster_arn
-  listener_dependency = 
+   
   subnet_ids = module.network.public_subnet_ids
   name_prefix = var.name_prefix
   target_group_arn = 
@@ -837,7 +836,7 @@ module "ecs_service_checkoutservice" {
 module "ecs_service_currencyservice" {
   source = "../../modules/ecs_service"
   environment = var.environment
-  service_registry_arn = 
+  service_registry_arn = aws_service_discovery_service.currencyservice
   enable_load_balancer = false
 
   container_name = "currencyservice"
@@ -846,7 +845,7 @@ module "ecs_service_currencyservice" {
   task_definition_arn = module.ecs_task_definition_currencyservice.task_definition_arn
   security_group_ids = aws_security_group.ecs_services
   cluster_arn = module.ecs_cluster.cluster_arn
-  listener_dependency = 
+   
   subnet_ids = module.network.public_subnet_ids
   name_prefix = var.name_prefix
   target_group_arn = 
@@ -856,7 +855,7 @@ module "ecs_service_currencyservice" {
 module "ecs_service_emailservice" {
   source = "../../modules/ecs_service"
   environment = var.environment
-  service_registry_arn = 
+  service_registry_arn = aws_service_discovery_service.emailservice
   enable_load_balancer = false
 
   container_name = "emailservice"
@@ -865,7 +864,7 @@ module "ecs_service_emailservice" {
   task_definition_arn = module.ecs_task_definition_emailservice.task_definition_arn
   security_group_ids = aws_security_group.ecs_services
   cluster_arn = module.ecs_cluster.cluster_arn
-  listener_dependency = 
+   
   subnet_ids = module.network.public_subnet_ids
   name_prefix = var.name_prefix
   target_group_arn = 
@@ -875,7 +874,7 @@ module "ecs_service_emailservice" {
 module "ecs_service_frontend" {
   source = "../../modules/ecs_service"
   environment = var.environment
-  service_registry_arn = 
+  service_registry_arn = null
   enable_load_balancer = true
 
   container_name = "frontend"
@@ -894,7 +893,7 @@ module "ecs_service_frontend" {
 module "ecs_service_paymentservice" {
   source = "../../modules/ecs_service"
   environment = var.environment
-  service_registry_arn = 
+  service_registry_arn = aws_service_discovery_service.paymentservice
   enable_load_balancer = false
 
   container_name = "paymentservice"
@@ -903,7 +902,7 @@ module "ecs_service_paymentservice" {
   task_definition_arn = module.ecs_task_definition_paymentservice.task_definition_arn
   security_group_ids = aws_security_group.ecs_services
   cluster_arn = module.ecs_cluster.cluster_arn
-  listener_dependency = 
+   
   subnet_ids = module.network.public_subnet_ids
   name_prefix = var.name_prefix
   target_group_arn = 
@@ -913,7 +912,7 @@ module "ecs_service_paymentservice" {
 module "ecs_service_productcatalogservice" {
   source = "../../modules/ecs_service"
   environment = var.environment
-  service_registry_arn = 
+  service_registry_arn = aws_service_discovery_service.productcatalogservice
   enable_load_balancer = false
 
   container_name = "productcatalogservice"
@@ -922,7 +921,7 @@ module "ecs_service_productcatalogservice" {
   task_definition_arn = module.ecs_task_definition_productcatalogservice.task_definition_arn
   security_group_ids = aws_security_group.ecs_services
   cluster_arn = module.ecs_cluster.cluster_arn
-  listener_dependency = 
+   
   subnet_ids = module.network.public_subnet_ids
   name_prefix = var.name_prefix
   target_group_arn = 
@@ -932,7 +931,7 @@ module "ecs_service_productcatalogservice" {
 module "ecs_service_recommendationservice" {
   source = "../../modules/ecs_service"
   environment = var.environment
-  service_registry_arn = 
+  service_registry_arn = aws_service_discovery_service.recommendationservice
   enable_load_balancer = false
 
   container_name = "recommendationservice"
@@ -941,7 +940,7 @@ module "ecs_service_recommendationservice" {
   task_definition_arn = module.ecs_task_definition_recommendationservice.task_definition_arn
   security_group_ids = aws_security_group.ecs_services
   cluster_arn = module.ecs_cluster.cluster_arn
-  listener_dependency = 
+   
   subnet_ids = module.network.public_subnet_ids
   name_prefix = var.name_prefix
   target_group_arn = 
@@ -951,7 +950,7 @@ module "ecs_service_recommendationservice" {
 module "ecs_service_redis_cart" {
   source = "../../modules/ecs_service"
   environment = var.environment
-  service_registry_arn = 
+  service_registry_arn = aws_service_discovery_service.redis_cart
   enable_load_balancer = false
   container_name = "redis_cart"
   container_port = 6379
@@ -959,7 +958,7 @@ module "ecs_service_redis_cart" {
   task_definition_arn = module.ecs_task_definition_redis_cart.task_definition_arn
   security_group_ids = aws_security_group.ecs_services
   cluster_arn = module.ecs_cluster.cluster_arn
-  listener_dependency = 
+   
   subnet_ids = module.network.public_subnet_ids
   name_prefix = var.name_prefix
   target_group_arn = aws_lb_target_group.frontend.arn
@@ -969,7 +968,7 @@ module "ecs_service_redis_cart" {
 module "ecs_service_shippingservice" {
   source = "../../modules/ecs_service"
   environment = var.environment
-  service_registry_arn = 
+  service_registry_arn = aws_service_discovery_service.shippingservice
   enable_load_balancer = false
   container_name = "shippingservice"
   container_port = 50051
@@ -977,7 +976,6 @@ module "ecs_service_shippingservice" {
   task_definition_arn = module.ecs_task_definition_shippingservice.task_definition_arn
   security_group_ids = aws_security_group.ecs_services
   cluster_arn = module.ecs_cluster.cluster_arn
-  listener_dependency = aws_lb_listener.http
   subnet_ids = module.network.public_subnet_ids
   name_prefix = var.name_prefix
   target_group_arn = aws_lb_target_group.frontend.arn
