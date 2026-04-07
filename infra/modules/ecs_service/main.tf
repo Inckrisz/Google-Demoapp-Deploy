@@ -1,5 +1,5 @@
 resource "aws_ecs_service" "this" {
-  name            = "${var.name_prefix}-service-${var.environment}"
+  name            = "${var.name_prefix}-${var.container_name}-${var.environment}"
   cluster         = var.cluster_arn
   task_definition = var.task_definition_arn
   desired_count   = var.desired_count
@@ -14,7 +14,7 @@ resource "aws_ecs_service" "this" {
   dynamic "load_balancer" {
     for_each = var.enable_load_balancer ? [1] : []
 
-    content {
+    content { 
       target_group_arn = var.target_group_arn
       container_name   = var.container_name
       container_port   = var.container_port
@@ -29,5 +29,5 @@ resource "aws_ecs_service" "this" {
     }
   }
 
-  depends_on = var.listener_dependency != null ? [var.listener_dependency] : []
+  # depends_on = var.listener_dependency != null ? [var.listener_dependency] : []
 }

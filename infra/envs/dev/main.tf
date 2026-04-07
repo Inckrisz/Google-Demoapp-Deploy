@@ -67,72 +67,6 @@ module "ecr" {
   project     = var.project
 }
 
-# module "ecr" {
-#   source = "../../modules/ecr"
-
-#   ecr_repository_name = "adservice-${var.environment}"
-# }
-
-# module "ecr" {
-#   source = "../../modules/ecr"
-
-#   ecr_repository_name = "cartservice-${var.environment}"
-# }
-
-# module "ecr" {
-#   source = "../../modules/ecr"
-
-#   ecr_repository_name = "checkoutservice-${var.environment}"
-# }
-
-# module "ecr" {
-#   source = "../../modules/ecr"
-
-#   ecr_repository_name = "currencyservice-${var.environment}"
-# }
-
-# module "ecr" {
-#   source = "../../modules/ecr"
-
-#   ecr_repository_name = "emailservice-${var.environment}"
-# }
-
-# module "ecr" {
-#   source = "../../modules/ecr"
-
-#   ecr_repository_name = "frontend-${var.environment}"
-# }
-
-# module "ecr" {
-#   source = "../../modules/ecr"
-
-#   ecr_repository_name = "loadgenerator-${var.environment}"
-# }
-
-# module "ecr" {
-#   source = "../../modules/ecr"
-
-#   ecr_repository_name = "paymentservice-${var.environment}"
-# }
-
-# module "ecr" {
-#   source = "../../modules/ecr"
-
-#   ecr_repository_name = "productcatalogservice-${var.environment}"
-# }
-
-# module "ecr" {
-#   source = "../../modules/ecr"
-
-#   ecr_repository_name = "cartservice-${var.environment}"
-# }
-
-# module "ecr" {
-#   source = "../../modules/ecr"
-
-#   ecr_repository_name = "shippingservice-${var.environment}"
-# }
-
 module "ecs_task_definition_adservice" {
   source = "../../modules/ecs_task_definition"
 
@@ -220,11 +154,11 @@ module "ecs_task_definition_cartservice" {
       },
       {
         "name": "REDIS_ADDR",
-        "value": "redis-cart.boutique.local:6379"
+        "value": "redis-cart.kriszboutique-dev-internal:6379"
       },
       {
         "name": "REDIS_CONNECTION_STRING",
-        "value": "redis-cart.boutique.local:6379"
+        "value": "redis-cart.kriszboutique-dev-internal:6379"
       }
     ],
     "environmentFiles": [],
@@ -251,7 +185,7 @@ module "ecs_task_definition_checkoutservice" {
 
   execution_role_arn = aws_iam_role.ecs_task_execution_role.arn
   task_role_arn = aws_iam_role.ecs_task_role.arn
-  family = "cartservice-${var.environment}"
+  family = "checkoutservice-${var.environment}"
   containers = [
   {
     "name": "checkoutservice",
@@ -270,19 +204,19 @@ module "ecs_task_definition_checkoutservice" {
     "environment": [
       {
         "name": "CART_SERVICE_ADDR",
-        "value": "cartservice.boutique.local:7070"
+        "value": "cartservice.kriszboutique-dev-internal:7070"
       },
       {
         "name": "PAYMENT_SERVICE_ADDR",
-        "value": "paymentservice.boutique.local:50051"
+        "value": "paymentservice.kriszboutique-dev-internal:50051"
       },
       {
         "name": "EMAIL_SERVICE_ADDR",
-        "value": "emailservice.boutique.local:8080"
+        "value": "emailservice.kriszboutique-dev-internal:8080"
       },
       {
         "name": "PRODUCT_CATALOG_SERVICE_ADDR",
-        "value": "productcatalogservice.boutique.local:3550"
+        "value": "productcatalogservice.kriszboutique-dev-internal:3550"
       },
       {
         "name": "PORT",
@@ -298,11 +232,11 @@ module "ecs_task_definition_checkoutservice" {
       },
       {
         "name": "CURRENCY_SERVICE_ADDR",
-        "value": "currencyservice.boutique.local:7000"
+        "value": "currencyservice.kriszboutique-dev-internal:7000"
       },
       {
         "name": "SHIPPING_SERVICE_ADDR",
-        "value": "shippingservice.boutique.local:50051"
+        "value": "shippingservice.kriszboutique-dev-internal:50051"
       }
     ],
     "environmentFiles": [],
@@ -329,7 +263,7 @@ module "ecs_task_definition_currencyservice" {
 
   execution_role_arn = aws_iam_role.ecs_task_execution_role.arn
   task_role_arn = aws_iam_role.ecs_task_role.arn
-  family = "cartservice-${var.environment}"
+  family = "currencyservice-${var.environment}"
   containers = [
   {
     "name": "currencyservice",
@@ -452,11 +386,11 @@ module "ecs_task_definition_frontend" {
     "environment": [
       {
         "name": "RECOMMENDATION_SERVICE_ADDR",
-        "value": "recommendationservice.boutique.local:8080"
+        "value": "recommendationservice.kriszboutique-dev-internal:8080"
       },
       {
         "name": "CART_SERVICE_ADDR",
-        "value": "cartservice.boutique.local:7070"
+        "value": "cartservice.kriszboutique-dev-internal:7070"
       },
       {
         "name": "PORT",
@@ -464,7 +398,7 @@ module "ecs_task_definition_frontend" {
       },
       {
         "name": "PRODUCT_CATALOG_SERVICE_ADDR",
-        "value": "productcatalogservice.boutique.local:3550"
+        "value": "productcatalogservice.kriszboutique-dev-internal:3550"
       },
       {
         "name": "GOTRACEBACK",
@@ -476,19 +410,19 @@ module "ecs_task_definition_frontend" {
       },
       {
         "name": "AD_SERVICE_ADDR",
-        "value": "adservice.boutique.local:9555"
+        "value": "adservice.kriszboutique-dev-internal:9555"
       },
       {
         "name": "CHECKOUT_SERVICE_ADDR",
-        "value": "checkoutservice.boutique.local:5050"
+        "value": "checkoutservice.kriszboutique-dev-internal:5050"
       },
       {
         "name": "CURRENCY_SERVICE_ADDR",
-        "value": "currencyservice.boutique.local:7000"
+        "value": "currencyservice.kriszboutique-dev-internal:7000"
       },
       {
         "name": "SHIPPING_SERVICE_ADDR",
-        "value": "shippingservice.boutique.local:50051"
+        "value": "shippingservice.kriszboutique-dev-internal:50051"
       }
     ],
     "environmentFiles": [],
@@ -655,7 +589,7 @@ module "ecs_task_definition_recommendationservice" {
       },
       {
         "name": "PRODUCT_CATALOG_SERVICE_ADDR",
-        "value": "productcatalogservice.boutique.local:3550"
+        "value": "productcatalogservice.kriszboutique-dev-internal:3550"
       },
       {
         "name": "DISABLE_TRACING",
@@ -705,7 +639,7 @@ module "ecs_task_definition_redis_cart" {
     "environment": [
       {
         "name": "REDIS_ADDR",
-        "value": "REDIS_ADDR=redis-cart.boutique.local:6379"
+        "value": "redis-cart.kriszboutique-dev-internal:6379"
       }
     ],
     "environmentFiles": [],
@@ -780,95 +714,95 @@ module "ecs_task_definition_shippingservice" {
 module "ecs_service_adservice" {
   source = "../../modules/ecs_service"
   environment = var.environment
-  service_registry_arn = aws_service_discovery_service.adservice
+  service_registry_arn = aws_service_discovery_service.adservice.arn
   enable_load_balancer = false
 
   container_name = "adservice"
   container_port = 9555
   desired_count = 1
   task_definition_arn = module.ecs_task_definition_adservice.task_definition_arn
-  security_group_ids = aws_security_group.ecs_services
+  security_group_ids = [aws_security_group.ecs_services.id]
   cluster_arn = module.ecs_cluster.cluster_arn
   subnet_ids = module.network.public_subnet_ids
   name_prefix = var.name_prefix
    
-  iam_role = aws_iam_role.ecs_task_execution_role
+  # iam_role = aws_iam_role.ecs_task_execution_role.arn
 }
 
 module "ecs_service_cartservice" {
   source = "../../modules/ecs_service"
   environment = var.environment
-  service_registry_arn = aws_service_discovery_service.cartservice
+  service_registry_arn = aws_service_discovery_service.cartservice.arn
   enable_load_balancer = false
 
   container_name = "cartservice"
   container_port = 7070
   desired_count = 1
   task_definition_arn = module.ecs_task_definition_cartservice.task_definition_arn
-  security_group_ids = aws_security_group.ecs_services
+  security_group_ids = [aws_security_group.ecs_services.id]
   cluster_arn = module.ecs_cluster.cluster_arn
    
   subnet_ids = module.network.public_subnet_ids
   name_prefix = var.name_prefix
    
-  iam_role = aws_iam_role.ecs_task_execution_role
+  # iam_role = aws_iam_role.ecs_task_execution_role.arn
 }
 
 module "ecs_service_checkoutservice" {
   source = "../../modules/ecs_service"
   environment = var.environment
-  service_registry_arn = aws_service_discovery_service.checkoutservice
+  service_registry_arn = aws_service_discovery_service.checkoutservice.arn
   enable_load_balancer = false
 
   container_name = "checkoutservice"
   container_port = 5050
   desired_count = 1
   task_definition_arn = module.ecs_task_definition_checkoutservice.task_definition_arn
-  security_group_ids = aws_security_group.ecs_services
+  security_group_ids = [aws_security_group.ecs_services.id]
   cluster_arn = module.ecs_cluster.cluster_arn
    
   subnet_ids = module.network.public_subnet_ids
   name_prefix = var.name_prefix
    
-  iam_role = aws_iam_role.ecs_task_execution_role
+  # iam_role = aws_iam_role.ecs_task_execution_role.arn
 }
 
 module "ecs_service_currencyservice" {
   source = "../../modules/ecs_service"
   environment = var.environment
-  service_registry_arn = aws_service_discovery_service.currencyservice
+  service_registry_arn = aws_service_discovery_service.currencyservice.arn
   enable_load_balancer = false
 
   container_name = "currencyservice"
   container_port = 7000
   desired_count = 1
   task_definition_arn = module.ecs_task_definition_currencyservice.task_definition_arn
-  security_group_ids = aws_security_group.ecs_services
+  security_group_ids = [aws_security_group.ecs_services.id]
   cluster_arn = module.ecs_cluster.cluster_arn
    
   subnet_ids = module.network.public_subnet_ids
   name_prefix = var.name_prefix
    
-  iam_role = aws_iam_role.ecs_task_execution_role
+  # iam_role = aws_iam_role.ecs_task_execution_role.arn
 }
 
 module "ecs_service_emailservice" {
   source = "../../modules/ecs_service"
   environment = var.environment
-  service_registry_arn = aws_service_discovery_service.emailservice
+  service_registry_arn = aws_service_discovery_service.emailservice.arn
   enable_load_balancer = false
 
   container_name = "emailservice"
   container_port = 8080
   desired_count = 1
   task_definition_arn = module.ecs_task_definition_emailservice.task_definition_arn
-  security_group_ids = aws_security_group.ecs_services
+  security_group_ids = [aws_security_group.ecs_services.id]
   cluster_arn = module.ecs_cluster.cluster_arn
    
   subnet_ids = module.network.public_subnet_ids
   name_prefix = var.name_prefix
    
-  iam_role = aws_iam_role.ecs_task_execution_role
+  # iam_role = aws_iam_role.ecs_task_execution_role.arn
 }
 
 module "ecs_service_frontend" {
@@ -881,101 +815,102 @@ module "ecs_service_frontend" {
   container_port = 8080
   desired_count = 1
   task_definition_arn = module.ecs_task_definition_frontend.task_definition_arn
-  security_group_ids = aws_security_group.ecs_services
+  security_group_ids = [aws_security_group.ecs_services.id]
   cluster_arn = module.ecs_cluster.cluster_arn
-  listener_dependency = aws_lb_listener.http
   subnet_ids = module.network.public_subnet_ids
   name_prefix = var.name_prefix
-  target_group_arn = aws_lb_listener.http
-  iam_role = aws_iam_role.ecs_task_execution_role
+  target_group_arn = aws_lb_listener.http.arn
+  # iam_role = aws_iam_role.ecs_task_execution_role.arn
+
+  depends_on = [ aws_lb_listener.http ]
 }
 
 module "ecs_service_paymentservice" {
   source = "../../modules/ecs_service"
   environment = var.environment
-  service_registry_arn = aws_service_discovery_service.paymentservice
+  service_registry_arn = aws_service_discovery_service.paymentservice.arn
   enable_load_balancer = false
 
   container_name = "paymentservice"
   container_port = 50051
   desired_count = 1
   task_definition_arn = module.ecs_task_definition_paymentservice.task_definition_arn
-  security_group_ids = aws_security_group.ecs_services
+  security_group_ids = [aws_security_group.ecs_services.id]
   cluster_arn = module.ecs_cluster.cluster_arn
    
   subnet_ids = module.network.public_subnet_ids
   name_prefix = var.name_prefix
    
-  iam_role = aws_iam_role.ecs_task_execution_role
+  # iam_role = aws_iam_role.ecs_task_execution_role.arn
 }
 
 module "ecs_service_productcatalogservice" {
   source = "../../modules/ecs_service"
   environment = var.environment
-  service_registry_arn = aws_service_discovery_service.productcatalogservice
+  service_registry_arn = aws_service_discovery_service.productcatalogservice.arn
   enable_load_balancer = false
 
   container_name = "productcatalogservice"
   container_port = 3550
   desired_count = 1
   task_definition_arn = module.ecs_task_definition_productcatalogservice.task_definition_arn
-  security_group_ids = aws_security_group.ecs_services
+  security_group_ids = [aws_security_group.ecs_services.id]
   cluster_arn = module.ecs_cluster.cluster_arn
    
   subnet_ids = module.network.public_subnet_ids
   name_prefix = var.name_prefix
    
-  iam_role = aws_iam_role.ecs_task_execution_role
+  # iam_role = aws_iam_role.ecs_task_execution_role.arn
 }
 
 module "ecs_service_recommendationservice" {
   source = "../../modules/ecs_service"
   environment = var.environment
-  service_registry_arn = aws_service_discovery_service.recommendationservice
+  service_registry_arn = aws_service_discovery_service.recommendationservice.arn
   enable_load_balancer = false
 
   container_name = "recommendationservice"
   container_port = 8080
   desired_count = 1
   task_definition_arn = module.ecs_task_definition_recommendationservice.task_definition_arn
-  security_group_ids = aws_security_group.ecs_services
+  security_group_ids = [aws_security_group.ecs_services.id]
   cluster_arn = module.ecs_cluster.cluster_arn
    
   subnet_ids = module.network.public_subnet_ids
   name_prefix = var.name_prefix
    
-  iam_role = aws_iam_role.ecs_task_execution_role
+  # iam_role = aws_iam_role.ecs_task_execution_role.arn
 }
 
 module "ecs_service_redis_cart" {
   source = "../../modules/ecs_service"
   environment = var.environment
-  service_registry_arn = aws_service_discovery_service.redis_cart
+  service_registry_arn = aws_service_discovery_service.redis_cart.arn
   enable_load_balancer = false
   container_name = "redis_cart"
   container_port = 6379
   desired_count = 1
   task_definition_arn = module.ecs_task_definition_redis_cart.task_definition_arn
-  security_group_ids = aws_security_group.ecs_services
+  security_group_ids = [aws_security_group.ecs_services.id]
   cluster_arn = module.ecs_cluster.cluster_arn
    
   subnet_ids = module.network.public_subnet_ids
   name_prefix = var.name_prefix
-  iam_role = aws_iam_role.ecs_task_execution_role
+  # iam_role = aws_iam_role.ecs_task_execution_role.arn
 }
 
 module "ecs_service_shippingservice" {
   source = "../../modules/ecs_service"
   environment = var.environment
-  service_registry_arn = aws_service_discovery_service.shippingservice
+  service_registry_arn = aws_service_discovery_service.shippingservice.arn
   enable_load_balancer = false
   container_name = "shippingservice"
   container_port = 50051
   desired_count = 1
   task_definition_arn = module.ecs_task_definition_shippingservice.task_definition_arn
-  security_group_ids = aws_security_group.ecs_services
+  security_group_ids = [aws_security_group.ecs_services.id]
   cluster_arn = module.ecs_cluster.cluster_arn
   subnet_ids = module.network.public_subnet_ids
   name_prefix = var.name_prefix
-  iam_role = aws_iam_role.ecs_task_execution_role
+  # iam_role = aws_iam_role.ecs_task_execution_role.arn
 }

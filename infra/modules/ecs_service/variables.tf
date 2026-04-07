@@ -13,10 +13,10 @@ variable "desired_count" {
     type = number
 }
 
-variable "iam_role" {
-  description = "Iam Role of the service"
-  type = string
-}
+# variable "iam_role" {
+#   description = "Iam Role of the service"
+#   type = string
+# }
 
 variable "container_name" {
   description = "Name of the container to associate with the load balancer."
@@ -45,20 +45,8 @@ variable "security_group_ids" {
 }
 
 variable "target_group_arn" {
-  type = any
-  default = null
-}
-
-variable "container_name" {
   type = string
-}
-
-variable "container_port" {
-  type = number
-}
-
-variable "desired_count" {
-  type = number
+  default = null
 }
 
 variable "listener_dependency" {

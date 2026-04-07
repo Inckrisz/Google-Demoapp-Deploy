@@ -3,7 +3,6 @@
 # run "dep ensure --vendor-only" to download the dependencies to vendor/ based
 # on the Gopkg.{toml,lock} files in that directory.
 vendor/
-./
 
 # Terraform local cache
 .terraform/
@@ -32,6 +31,8 @@ terraform.rc
 # Terraform plan output
 *.tfplan
 plan.out
+tf.plan
+*.txt
 
 # Editor / OS
 .vscode/
