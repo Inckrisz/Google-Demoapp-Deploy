@@ -10,18 +10,18 @@ variable "environment" {
 
 variable "project" {
   description = "Project name for tags"
-  type = string
+  type        = string
 }
 
 variable "security_groups" {
   description = "Security group for Application Load Balancer"
-  type = list(string)
+  type        = list(string)
 }
 
 variable "enable_deletion_protection" {
   description = "Enable deletion protection for ALB"
-  type = bool
-  default = false
+  type        = bool
+  default     = false
 }
 
 variable "subnet_ids" {

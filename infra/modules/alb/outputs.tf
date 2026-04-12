@@ -1,6 +1,6 @@
 output "alb_id" {
   description = "Id of Application Load Balancer"
-  value = aws_lb.this
+  value       = aws_lb.this
 }
 
 output "alb_arn" {

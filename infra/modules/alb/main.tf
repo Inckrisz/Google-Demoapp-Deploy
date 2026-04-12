@@ -1,5 +1,5 @@
 resource "aws_lb" "this" {
-  name               =  "${var.name_prefix}-alb-${var.environment}"
+  name               = "${var.name_prefix}-alb-${var.environment}"
   internal           = false
   load_balancer_type = "application"
   security_groups    = var.security_groups
@@ -7,11 +7,11 @@ resource "aws_lb" "this" {
 
   enable_deletion_protection = var.enable_deletion_protection
 
-#   access_logs {
-#     bucket  = aws_s3_bucket.lb_logs.id
-#     prefix  = "test-lb"
-#     enabled = true
-#   }
+  #   access_logs {
+  #     bucket  = aws_s3_bucket.lb_logs.id
+  #     prefix  = "test-lb"
+  #     enabled = true
+  #   }
 
   tags = {
     Name        = "${var.name_prefix}-alb-${var.environment}"

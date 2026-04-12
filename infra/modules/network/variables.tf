@@ -1,14 +1,14 @@
 variable "vpc_name" {
   description = "Name of the VPC"
-  type = string
+  type        = string
 }
 variable "environment" {
   description = "Environment name for tags"
-  type = string
+  type        = string
 }
 variable "project" {
   description = "Project name for tags"
-  type = string
+  type        = string
 }
 
 # variable "public_subnet_cidrs" {

@@ -4,13 +4,13 @@ variable "name_prefix" {
 }
 
 variable "environment" {
-  type = string
+  type        = string
   description = "Environment for the ECS service"
 }
 
 variable "desired_count" {
-    description = "Desired count of ECS Service"
-    type = number
+  description = "Desired count of ECS Service"
+  type        = number
 }
 
 # variable "iam_role" {
@@ -20,12 +20,12 @@ variable "desired_count" {
 
 variable "container_name" {
   description = "Name of the container to associate with the load balancer."
-  type = string
+  type        = string
 }
 
 variable "container_port" {
- description = "Port on the container to associate with the load balancer."
- type = number
+  description = "Port on the container to associate with the load balancer."
+  type        = number
 }
 
 variable "cluster_arn" {
@@ -45,7 +45,7 @@ variable "security_group_ids" {
 }
 
 variable "target_group_arn" {
-  type = string
+  type    = string
   default = null
 }
 
@@ -55,10 +55,10 @@ variable "listener_dependency" {
 }
 
 variable "enable_load_balancer" {
-  type = bool
+  type        = bool
   description = "Enable load balancer for ECS service"
 }
 
 variable "service_registry_arn" {
-  
+
 }

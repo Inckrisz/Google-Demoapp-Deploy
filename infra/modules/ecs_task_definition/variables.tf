@@ -1,28 +1,28 @@
 variable "family" {
   description = "Name of the task definition"
-  type = string
+  type        = string
 }
 
 variable "containers" {
   description = "Json for the container(s)"
-  type = list(any)
+  type        = list(any)
 }
 
 variable "execution_role_arn" {
-  
+
 }
 
 variable "task_role_arn" {
-  
+
 }
 
 variable "cpu" {
-  type = string
+  type    = string
   default = "256"
 }
 
 variable "memory" {
-  type = string
+  type    = string
   default = "512"
 }
 

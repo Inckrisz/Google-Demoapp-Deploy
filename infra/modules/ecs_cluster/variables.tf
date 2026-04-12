@@ -10,13 +10,13 @@ variable "environment" {
 
 variable "project" {
   description = "Project name for tags"
-  type = string
+  type        = string
 }
 
 variable "enable_container_insights" {
   description = "Enable CloudWatch Container Insights"
   type        = bool
-  default = true
+  default     = true
 }
 
 variable "capacity_providers" {
@@ -34,10 +34,10 @@ variable "default_capacity_provider_strategy" {
   }))
 
   default = [
-  {
-    capacity_provider = "FARGATE"
-    weight            = 1
-    base              = 0
-  }
- ]
+    {
+      capacity_provider = "FARGATE"
+      weight            = 1
+      base              = 0
+    }
+  ]
 }

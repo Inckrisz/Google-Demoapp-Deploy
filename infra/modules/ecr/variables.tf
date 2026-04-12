@@ -14,5 +14,5 @@ variable "environment" {
 
 variable "project" {
   description = "Project name for tags"
-  type = string
+  type        = string
 }
