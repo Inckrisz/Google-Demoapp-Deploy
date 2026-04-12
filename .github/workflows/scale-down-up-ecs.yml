@@ -11,7 +11,7 @@ on:
         desired_count:
           type: choice
           required: true
-          default: 0
+          default: "0"
           description: DESIRED_COUNT
           options: 
             - "0"
@@ -24,6 +24,7 @@ permissions:
 jobs:
   scale:
     runs-on: ubuntu-latest
+    environment: dev
 
     steps:
       - uses: actions/checkout@v4

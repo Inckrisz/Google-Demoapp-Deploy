@@ -16,6 +16,7 @@ permissions:
 jobs:
   terraform:
     runs-on: ubuntu-latest
+    environment: dev
     defaults:
       run:
         working-directory: infra/envs/dev
