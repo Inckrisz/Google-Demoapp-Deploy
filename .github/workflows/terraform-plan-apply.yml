@@ -2,6 +2,11 @@ name: Terraform Apply
 
 on:
   workflow_call:
+      inputs:
+        apply:
+          required: true
+          type: boolean
+          default: false
   workflow_dispatch:
       inputs:
         apply:
@@ -52,5 +57,5 @@ jobs:
         run: terraform plan -out=tfplan
 
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/main' && inputs.apply == true
+        if: github.ref == 'refs/heads/main' && inputs.apply
         run: terraform apply -auto-approve tfplan
