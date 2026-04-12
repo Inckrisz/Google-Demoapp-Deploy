@@ -10,12 +10,8 @@ permissions:
   contents: read
 
 jobs:
-  terraform:
-    uses: ./.github/workflows/terraform-apply.yml
-    secrets: inherit
 
   docker:
-    needs: terraform
     uses: ./.github/workflows/docker-build-push.yml
     secrets: inherit
 
@@ -24,4 +20,9 @@ jobs:
     uses: ./.github/workflows/scale-ecs.yml
     with:
       desired_count: "1"
+    secrets: inherit
+
+  terraform:
+    needs: scale-up
+    uses: ./.github/workflows/terraform-apply.yml
     secrets: inherit
