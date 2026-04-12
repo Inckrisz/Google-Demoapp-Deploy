@@ -1,0 +1,59 @@
+name: Scale ECS Services to Zero
+
+on:
+  workflow_call:
+    inputs:
+      desired_count:
+        required: true
+        type: string
+  workflow_dispatch:
+      inputs:
+        desired_count:
+          type: choice
+          required: true
+          default: 0
+          description: DESIRED_COUNT
+          options: 
+            - "0"
+            - "1"
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  scale:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-actions-terraform-deploy
+          aws-region: eu-north-1
+
+      - name: Scale services down
+        run: |
+          CLUSTER="kriszboutique-cluster-dev"
+          DESIRED_COUNT="${{ inputs.desired_count || github.event.inputs.desired_count }}"
+
+          for SERVICE in \
+            frontend \
+            shippingservice \
+            paymentservice \
+            checkoutservice \
+            currencyservice \
+            productcatalogservice \
+            cartservice \
+            redis-cart \
+            emailservice \
+            recommendationservice \
+            adservice
+          do
+            aws ecs update-service \
+              --cluster "$CLUSTER" \
+              --service "kriszboutique-${SERVICE}-dev" \
+              --desired-count "$DESIRED_COUNT"
+          done
