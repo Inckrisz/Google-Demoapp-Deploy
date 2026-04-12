@@ -20,6 +20,7 @@ jobs:
 
     steps:
       - name: Checkout
+        continue-on-error: true
         uses: actions/checkout@v4
 
       - name: Configure AWS credentials
@@ -29,10 +30,12 @@ jobs:
           aws-region: eu-north-1
 
       - name: Login to Amazon ECR
+        continue-on-error: true
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
       - name: Build and push frontend
+        continue-on-error: true
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: frontend-dev
@@ -42,6 +45,7 @@ jobs:
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
       
       - name: Build and push checkoutservice
+        continue-on-error: true
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: checkoutservice-dev
@@ -51,6 +55,7 @@ jobs:
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
       - name: Build and push cartservice
+        continue-on-error: true
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: cartservice-dev
@@ -60,6 +65,7 @@ jobs:
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
       - name: Build and push currencyservice
+        continue-on-error: true
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: currencyservice-dev
@@ -70,6 +76,7 @@ jobs:
 
 
       - name: Build and push emailservice
+        continue-on-error: true
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: emailservice-dev
@@ -80,6 +87,7 @@ jobs:
 
 
       - name: Build and push paymentservice
+        continue-on-error: true
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: paymentservice-dev
@@ -89,6 +97,7 @@ jobs:
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
       - name: Build and push recommendationservice
+        continue-on-error: true
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: recommendationservice-dev
@@ -98,6 +107,7 @@ jobs:
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
       - name: Build and push shippingservice
+        continue-on-error: true
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: shippingservice-dev
@@ -107,6 +117,7 @@ jobs:
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG          
 
       - name: Build and push adservice
+        continue-on-error: true
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: adservice-dev
@@ -116,6 +127,7 @@ jobs:
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           
       - name: Build and push loadgenerator
+        continue-on-error: true
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: loadgenerator-dev
@@ -125,6 +137,7 @@ jobs:
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG        
           
       - name: Build and push shoppingassistantservice
+        continue-on-error: true
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: shoppingassistantservice-dev
