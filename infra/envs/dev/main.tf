@@ -8,8 +8,10 @@ locals {
     "frontend",
     "loadgenerator",
     "paymentservice",
+    "recommendationservice",
     "productcatalogservice",
-    "shippingservice"
+    "shippingservice",
+    "shippingassistantservice"
   ])
 }
 
