@@ -9,5 +9,6 @@ variable "aws_profile" {
 }
 
 variable "state_bucket_name" {
+  default = "krisztian-aws-thesis-tfstate-eu-north-1"
   type = string
 }
