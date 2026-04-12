@@ -1,7 +1,7 @@
 variable "name_prefix" {
   description = "Prefix for the ECS cluster name"
   type        = string
-  default = "kriszboutique"
+  default     = "kriszboutique"
 }
 
 variable "environment" {
@@ -12,8 +12,8 @@ variable "environment" {
 
 variable "project" {
   description = "Project name for tags"
-  type = string
-  default = "project_thesis"
+  type        = string
+  default     = "project_thesis"
 }
 
 variable "aws_region" {
@@ -27,6 +27,6 @@ variable "aws_profile" {
 }
 
 variable "domain_name" {
-  type = string
+  type    = string
   default = null
 }
