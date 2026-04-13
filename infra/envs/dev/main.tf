@@ -408,7 +408,7 @@ module "ecs_task_definition_frontend" {
         },
         {
           "name" : "SHOPPING_ASSISTANT_SERVICE_ADDR",
-          "value" : "localhost:8080"
+          "value" : "shoppingassistantservice.kriszboutique-dev-internal:8080"
         },
         {
           "name" : "AD_SERVICE_ADDR",
@@ -912,7 +912,7 @@ module "ecs_service_emailservice" {
 module "ecs_service_frontend" {
   source               = "../../modules/ecs_service"
   environment          = var.environment
-  service_registry_arn = null
+  service_registry_arn = aws_service_discovery_service.frontend.arn
   enable_load_balancer = true
 
   container_name      = "frontend"
