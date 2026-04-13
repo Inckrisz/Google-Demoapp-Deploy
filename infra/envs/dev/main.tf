@@ -11,7 +11,7 @@ locals {
     "recommendationservice",
     "productcatalogservice",
     "shippingservice",
-    "shippingassistantservice"
+    "shoppingassistantservice"
   ])
 }
 
@@ -447,6 +447,51 @@ module "ecs_task_definition_frontend" {
 
 }
 
+module "ecs_task_definition_loadgenerator" {
+  source = "../../modules/ecs_task_definition"
+
+  execution_role_arn = aws_iam_role.ecs_task_execution_role.arn
+  task_role_arn      = aws_iam_role.ecs_task_role.arn
+  family             = "loadgenerator-${var.environment}"
+
+  containers = [
+    {
+      name  = "loadgenerator"
+      image = "324037277205.dkr.ecr.eu-north-1.amazonaws.com/loadgenerator@sha256:b0011b7b5577bc01b806eaba44530da55ba3437b0444043f28f1094b9c61d22c"
+      cpu   = 0
+
+      portMappings = []
+
+      essential = true
+
+      environment = [
+        {
+          name  = "FRONTEND_ADDR"
+          value = "http://frontend.kriszboutique-dev-internal"
+        }
+      ]
+
+      environmentFiles = []
+      mountPoints      = []
+      volumesFrom      = []
+      ulimits          = []
+
+      logConfiguration = {
+        logDriver = "awslogs"
+        options = {
+          awslogs-group         = "/ecs/loadgenerator"
+          awslogs-create-group  = "true"
+          awslogs-region        = "eu-north-1"
+          awslogs-stream-prefix = "ecs"
+        }
+        secretOptions = []
+      }
+
+      systemControls = []
+    }
+  ]
+}
+
 module "ecs_task_definition_paymentservice" {
   source = "../../modules/ecs_task_definition"
 
@@ -713,6 +758,63 @@ module "ecs_task_definition_shippingservice" {
   ]
 }
 
+module "ecs_task_definition_shoppingassistantservice" {
+  source = "../../modules/ecs_task_definition"
+
+  execution_role_arn = aws_iam_role.ecs_task_execution_role.arn
+  task_role_arn      = aws_iam_role.ecs_task_role.arn
+  family             = "shoppingassistantservice-${var.environment}"
+
+  containers = [
+    {
+      name  = "shoppingassistantservice"
+      image = "324037277205.dkr.ecr.eu-north-1.amazonaws.com/shoppingassistantservice@sha256:1cad86678794330bca01a28dd34bca3692396d2a1483d738274a96a532395b39"
+      cpu   = 0
+
+      portMappings = [
+        {
+          name          = "shoppingassistantservice-8080-tcp"
+          containerPort = 8080
+          hostPort      = 8080
+          protocol      = "tcp"
+          appProtocol   = "http"
+        }
+      ]
+
+      essential = true
+
+      environment = [
+        {
+          name  = "DISABLE_PROFILER"
+          value = "true"
+        },
+        {
+          name  = "DISABLE_TRACING"
+          value = "true"
+        }
+      ]
+
+      environmentFiles = []
+      mountPoints      = []
+      volumesFrom      = []
+      ulimits          = []
+
+      logConfiguration = {
+        logDriver = "awslogs"
+        options = {
+          awslogs-group         = "/ecs/shoppingassistantservice"
+          awslogs-create-group  = "true"
+          awslogs-region        = "eu-north-1"
+          awslogs-stream-prefix = "ecs"
+        }
+        secretOptions = []
+      }
+
+      systemControls = []
+    }
+  ]
+}
+
 module "ecs_service_adservice" {
   source               = "../../modules/ecs_service"
   environment          = var.environment
@@ -915,4 +1017,38 @@ module "ecs_service_shippingservice" {
   subnet_ids           = module.network.public_subnet_ids
   name_prefix          = var.name_prefix
   # iam_role = aws_iam_role.ecs_task_execution_role.arn
+}
+
+module "ecs_service_shoppingassistantservice" {
+  source               = "../../modules/ecs_service"
+  environment          = var.environment
+  service_registry_arn = aws_service_discovery_service.shoppingassistantservice.arn
+  enable_load_balancer = false
+
+  container_name      = "shoppingassistantservice"
+  container_port      = 8080
+  desired_count       = 1
+  task_definition_arn = module.ecs_task_definition_shoppingassistantservice.task_definition_arn
+  security_group_ids  = [aws_security_group.ecs_services.id]
+  cluster_arn         = module.ecs_cluster.cluster_arn
+
+  subnet_ids  = module.network.public_subnet_ids
+  name_prefix = var.name_prefix
+}
+
+module "ecs_service_loadgenerator" {
+  source               = "../../modules/ecs_service"
+  environment          = var.environment
+  enable_load_balancer = false
+  service_registry_arn = null
+
+  container_name      = "loadgenerator"
+  container_port      = 8080
+  desired_count       = 1
+  task_definition_arn = module.ecs_task_definition_loadgenerator.task_definition_arn
+  security_group_ids  = [aws_security_group.ecs_services.id]
+  cluster_arn         = module.ecs_cluster.cluster_arn
+
+  subnet_ids  = module.network.public_subnet_ids
+  name_prefix = var.name_prefix
 }
