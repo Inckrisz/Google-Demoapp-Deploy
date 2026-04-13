@@ -51,7 +51,9 @@ jobs:
             redis_cart \
             emailservice \
             recommendationservice \
-            adservice
+            adservice \
+            loadgenerator \
+            shoppingassistantservice
           do
             aws ecs update-service \
               --cluster "$CLUSTER" \
