@@ -4,7 +4,7 @@ import {
 }
 
 resource "aws_route53_zone" "main" {
-  name = "kriszboutique.click"
+  name    = "kriszboutique.click"
   comment = "HostedZone created by Route53 Registrar"
 
   # optional but avoids drift
