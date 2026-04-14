@@ -21,6 +21,25 @@ jobs:
     uses: ./.github/workflows/docker-build-push.yml
     secrets: inherit
 
+  debug-docker-outputs:
+    needs: docker
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print docker outputs
+        run: |
+          echo "frontend=${{ needs.docker.outputs.frontend_image }}"
+          echo "shoppingassistantservice=${{ needs.docker.outputs.shoppingassistantservice_image }}"
+          echo "recommendationservice=${{ needs.docker.outputs.recommendationservice_image }}"
+          echo "loadgenerator=${{ needs.docker.outputs.loadgenerator_image }}"
+          echo "shippingservice=${{ needs.docker.outputs.shippingservice_image }}"
+          echo "checkoutservice=${{ needs.docker.outputs.checkoutservice_image }}"
+          echo "currencyservice=${{ needs.docker.outputs.currencyservice_image }}"
+          echo "productcatalogservice=${{ needs.docker.outputs.productcatalogservice_image }}"
+          echo "cartservice=${{ needs.docker.outputs.cartservice_image }}"
+          echo "adservice=${{ needs.docker.outputs.adservice_image }}"
+          echo "emailservice=${{ needs.docker.outputs.emailservice_image }}"
+          echo "paymentservice=${{ needs.docker.outputs.paymentservice_image }}"
+
   generate-tfvars:
     needs: docker
     uses: ./.github/workflows/generate_tfvars.yml
