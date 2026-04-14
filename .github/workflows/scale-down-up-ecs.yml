@@ -35,7 +35,7 @@ jobs:
           role-to-assume: arn:aws:iam::${{ vars.AWS_ACCOUNT_ID }}:role/github-actions-terraform-deploy
           aws-region: eu-north-1
 
-      - name: Scale services down
+      - name: Scale services up/down
         run: |
           CLUSTER="kriszboutique-cluster-dev"
           DESIRED_COUNT="${{ inputs.desired_count || github.event.inputs.desired_count }}"

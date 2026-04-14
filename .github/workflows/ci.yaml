@@ -6,7 +6,7 @@ on:
       up_minutes:
         description: "How many minutes should ECS stay up?"
         required: true
-        default: "30"
+        default: "5"
         type: string
   push:
     branches: [ main ]
