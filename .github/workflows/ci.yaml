@@ -55,7 +55,7 @@ jobs:
 
   scale-up:
     needs: terraform
-    uses: ./.github/workflows/scale-ecs.yml
+    uses: ./.github/workflows/scale-down-up-ecs.yml
     with:
       desired_count: "1"
     secrets: inherit
@@ -72,7 +72,7 @@ jobs:
 
   scale-down:
     needs: wait
-    uses: ./.github/workflows/scale-ecs.yml
+    uses: ./.github/workflows/scale-down-up-ecs.yml
     with:
       desired_count: "0"
     secrets: inherit          
