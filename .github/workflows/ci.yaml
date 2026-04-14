@@ -2,6 +2,12 @@ name: CI Deploy
 
 on:
   workflow_dispatch:
+    inputs:
+      up_minutes:
+        description: "How many minutes should ECS stay up?"
+        required: true
+        default: "30"
+        type: string
   push:
     branches: [ main ]
 
@@ -46,3 +52,27 @@ jobs:
     with:
       apply: true
     secrets: inherit
+
+  scale-up:
+    needs: terraform
+    uses: ./.github/workflows/scale-ecs.yml
+    with:
+      desired_count: "1"
+    secrets: inherit
+
+  wait:
+    needs: scale-up
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for requested minutes
+        run: |
+          MINUTES="${{ github.event.inputs.up_minutes || '30' }}"
+          echo "Waiting for $MINUTES minute(s)..."
+          sleep $((MINUTES * 60))
+
+  scale-down:
+    needs: wait
+    uses: ./.github/workflows/scale-ecs.yml
+    with:
+      desired_count: "0"
+    secrets: inherit          

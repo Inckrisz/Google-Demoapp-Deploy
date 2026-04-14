@@ -12,74 +12,74 @@ on:
           required: false
           type: string          
           description: adservice image URI
-          default: ""
+          
 
         cartservice_image:
           required: false
           type: string
           description: cartservice image URI
-          default: ""
+          
 
         checkoutservice_image:
           required: false
           type: string
           description: checkoutservice image URI
-          default: ""
+          
 
         currencyservice_image:
           required: false
           type: string
           description: currencyservice image URI
-          default: ""
+          
 
         emailservice_image:
           required: false
           type: string
           description: emailservice image URI
-          default: ""
+          
           
         frontend_image:
           required: false
           type: string
           description: Frontend image URI
-          default: ""
+          
           
         loadgenerator_image:
           required: false
           type: string
           description: loadgenerator image URI
-          default: ""
+          
           
         paymentservice_image:
           required: false
           type: string
           description: paymentservice image URI
-          default: ""
+          
           
         productcatalogservice_image:
           required: false
           type: string
           description: productcatalogservice image URI
-          default: ""
+          
           
           
         recommendationservice_image:
           required: false
           type: string
           description: recommendationservice image URI
-          default: ""       
+                 
 
         shippingservice_image:
           required: false
           type: string
           description: shippingservice image URI
-          default: ""
+          
 
         shoppingassistantservice_image:
           required: false
           type: string
           description: shoppingassistantservice image URI
-          default: ""
+          
 
   workflow_dispatch:
       inputs:
