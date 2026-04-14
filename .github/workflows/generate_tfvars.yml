@@ -1,0 +1,88 @@
+name: Generate CI tfvars
+
+on:
+  workflow_call:
+    inputs:
+      frontend_image:
+        required: false
+        type: string
+      shoppingassistantservice_image:
+        required: false
+        type: string
+        
+      recommendationservice_image:
+        required: false
+        type: string
+        
+      loadgenerator_image:
+        required: false
+        type: string
+        
+      shippingservice_image:
+        required: false
+        type: string
+        
+      checkoutservice_image:
+        required: false
+        type: string
+        
+      currencyservice_image:
+        required: false
+        type: string
+        
+      productcatalogservice_image:
+        required: false
+        type: string
+        
+      cartservice_image:
+        required: false
+        type: string
+        
+      adservice_image:
+        required: false
+        type: string
+        
+      emailservice_image:
+        required: false
+        type: string
+        
+      paymentservice_image:
+        required: false
+        type: string
+        
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate ci.auto.tfvars
+        working-directory: infra/envs/dev
+        run: |
+          cat > ci.auto.tfvars <<EOF
+          frontend_image = "${{ inputs.frontend_image }}"
+          shoppingassistantservice_image = "${{ inputs.shoppingassistantservice_image }}"
+          recommendationservice_image = "${{ inputs.recommendationservice_image }}"
+          loadgenerator_image = "${{ inputs.loadgenerator_image }}"
+          shippingservice_image = "${{ inputs.shippingservice_image }}"
+          checkoutservice_image = "${{ inputs.checkoutservice_image }}"
+          currencyservice_image = "${{ inputs.currencyservice_image }}"
+          productcatalogservice_image = "${{ inputs.productcatalogservice_image }}"
+          cartservice_image = "${{ inputs.cartservice_image }}"
+          adservice_image = "${{ inputs.adservice_image }}"
+          emailservice_image = "${{ inputs.emailservice_image }}"
+          paymentservice_image = "${{ inputs.paymentservice_image }}"
+          EOF
+
+      - name: Show generated tfvars
+        working-directory: infra/envs/dev
+        run: cat ci.auto.tfvars
+
+      - name: Upload tfvars artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-auto-tfvars
+          path: infra/envs/dev/ci.auto.tfvars
