@@ -55,9 +55,16 @@ jobs:
   generate:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: infra/envs/dev
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
 
       - name: Generate ci.auto.tfvars
         working-directory: infra/envs/dev
@@ -76,6 +83,9 @@ jobs:
           emailservice_image = "${{ inputs.emailservice_image }}"
           paymentservice_image = "${{ inputs.paymentservice_image }}"
           EOF
+
+      - name: Format tfvars
+        run: terraform fmt ci.auto.tfvars
 
       - name: Show generated tfvars
         working-directory: infra/envs/dev
