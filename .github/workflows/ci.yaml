@@ -87,7 +87,7 @@ jobs:
     steps:
       - name: Wait for requested minutes
         run: |
-          MINUTES="${{ github.event.inputs.up_minutes || '30' }}"
+          MINUTES="${{ github.event.inputs.up_minutes || '5' }}"
           echo "Waiting for $MINUTES minute(s)..."
           sleep $((MINUTES * 60))
 
