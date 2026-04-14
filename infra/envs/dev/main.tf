@@ -78,7 +78,7 @@ module "ecs_task_definition_adservice" {
   containers = [
     {
       "name" : "adservice",
-      "image" : "324037277205.dkr.ecr.eu-north-1.amazonaws.com/adservice@sha256:3fb07a86312fc2d0feab4c9605d380469872979557ee19c37c9e1dd23513c7d1",
+      "image" : var.adservice_image,
       "cpu" : 0,
       "portMappings" : [
         {
@@ -133,7 +133,7 @@ module "ecs_task_definition_cartservice" {
   containers = [
     {
       "name" : "cartservice",
-      "image" : "324037277205.dkr.ecr.eu-north-1.amazonaws.com/cartservice@sha256:3b385efb016c741f5d5d94c3f7fc82736097cf70a1372a63fb6d8644b42930bb",
+      "image" : var.cartservice_image,
       "cpu" : 0,
       "portMappings" : [
         {
@@ -191,7 +191,7 @@ module "ecs_task_definition_checkoutservice" {
   containers = [
     {
       "name" : "checkoutservice",
-      "image" : "324037277205.dkr.ecr.eu-north-1.amazonaws.com/checkoutservice@sha256:b59ac1ee837421f3aae8e7e14f16a22fef30f9c5035847c957cfd42329b230a2",
+      "image" : var.checkoutservice_image,
       "cpu" : 0,
       "portMappings" : [
         {
@@ -269,7 +269,7 @@ module "ecs_task_definition_currencyservice" {
   containers = [
     {
       "name" : "currencyservice",
-      "image" : "324037277205.dkr.ecr.eu-north-1.amazonaws.com/currencyservice@sha256:ac44dbc7d24526b3159467055bdff8d72e8e376e9947f9f3f9567a75d943f025",
+      "image" : var.currencyservice_image,
       "cpu" : 0,
       "portMappings" : [
         {
@@ -323,7 +323,7 @@ module "ecs_task_definition_emailservice" {
   containers = [
     {
       "name" : "emailservice",
-      "image" : "324037277205.dkr.ecr.eu-north-1.amazonaws.com/emailservice@sha256:9bd6468012a01b981a1b97fd0a6e522bece5b387c903f95e476aa2646d52fed4",
+      "image" : var.emailservice_image,
       "cpu" : 0,
       "portMappings" : [
         {
@@ -373,7 +373,7 @@ module "ecs_task_definition_frontend" {
   containers = [
     {
       "name" : "frontend",
-      "image" : "324037277205.dkr.ecr.eu-north-1.amazonaws.com/frontend@sha256:5ff233bc21260cbeef46648b32ed401d2ef13c1c7e1da733b4c36110e423ba9a",
+      "image" : var.frontend_image,
       "cpu" : 0,
       "portMappings" : [
         {
@@ -457,7 +457,7 @@ module "ecs_task_definition_loadgenerator" {
   containers = [
     {
       name  = "loadgenerator"
-      image = "324037277205.dkr.ecr.eu-north-1.amazonaws.com/loadgenerator@sha256:b0011b7b5577bc01b806eaba44530da55ba3437b0444043f28f1094b9c61d22c"
+      image = var.loadgenerator_image,
       cpu   = 0
 
       portMappings = []
@@ -501,7 +501,7 @@ module "ecs_task_definition_paymentservice" {
   containers = [
     {
       "name" : "paymentservice",
-      "image" : "324037277205.dkr.ecr.eu-north-1.amazonaws.com/paymentservice@sha256:585bb221b8259fec3805679f78c97c44675a604beb4c8e97f29bef5afda6b618",
+      "image" : var.paymentservice_image,
       "cpu" : 0,
       "portMappings" : [
         {
@@ -555,7 +555,7 @@ module "ecs_task_definition_productcatalogservice" {
   containers = [
     {
       "name" : "productcatalogservice",
-      "image" : "324037277205.dkr.ecr.eu-north-1.amazonaws.com/productcatalogservice@sha256:bd98e5d45ad0e2a5badeb09445a090ee2c63df4e0d6385ac551f0cb4a6fcd243",
+      "image" : var.productcatalogservice_image,
       "cpu" : 0,
       "portMappings" : [
         {
@@ -613,7 +613,7 @@ module "ecs_task_definition_recommendationservice" {
   containers = [
     {
       "name" : "recommendationservice",
-      "image" : "324037277205.dkr.ecr.eu-north-1.amazonaws.com/recommendationservice@sha256:92caf4fd9a7b7adbf5df4234f086dc450f9ea1bb8bd83930be6c6b9c31847f67",
+      "image" : var.recommendationservice_image,
       "cpu" : 0,
       "portMappings" : [
         {
@@ -717,7 +717,7 @@ module "ecs_task_definition_shippingservice" {
   containers = [
     {
       "name" : "shippingservice",
-      "image" : "324037277205.dkr.ecr.eu-north-1.amazonaws.com/shippingservice@sha256:2e65717e5173baed6fd47a84df8370df7a178af0bfe48c2948980719a7d1a20f",
+      "image" : var.shippingservice_image,
       "cpu" : 0,
       "portMappings" : [
         {
@@ -768,7 +768,7 @@ module "ecs_task_definition_shoppingassistantservice" {
   containers = [
     {
       name  = "shoppingassistantservice"
-      image = "324037277205.dkr.ecr.eu-north-1.amazonaws.com/shoppingassistantservice@sha256:1cad86678794330bca01a28dd34bca3692396d2a1483d738274a96a532395b39"
+      image = var.shoppingassistantservice_image,
       cpu   = 0
 
       portMappings = [

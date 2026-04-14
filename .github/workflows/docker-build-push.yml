@@ -2,6 +2,56 @@ name: Docker Build and Push
 
 on:
   workflow_call:
+    outputs:
+      adservice_image:
+        description: adservice image URI
+        value: ${{ jobs.build-push.outputs.adservice_image }}
+
+      cartservice_image:
+        description: cartservice image URI
+        value: ${{ jobs.build-push.outputs.cartservice_image }}
+
+      checkoutservice_image:
+        description: checkoutservice image URI
+        value: ${{ jobs.build-push.outputs.checkoutservice_image }}
+
+      currencyservice_image:
+        description: currencyservice image URI
+        value: ${{ jobs.build-push.outputs.currencyservice_image }}
+
+      emailservice_image:
+        description: emailservice image URI
+        value: ${{ jobs.build-push.outputs.emailservice_image }}
+        
+      frontend_image:
+        description: Frontend image URI
+        value: ${{ jobs.build-push.outputs.frontend_image }}
+        
+      loadgenerator_image:
+        description: loadgenerator image URI
+        value: ${{ jobs.build-push.outputs.loadgenerator_image }}
+        
+      paymentservice_image:
+        description: paymentservice image URI
+        value: ${{ jobs.build-push.outputs.paymentservice_image }}
+        
+      productcatalogservice_image:
+        description: productcatalogservice image URI
+        value: ${{ jobs.build-push.outputs.productcatalogservice_image }}
+        
+        
+      recommendationservice_image:
+        description: recommendationservice image URI
+        value: ${{ jobs.build-push.outputs.recommendationservice_image }}        
+
+      shippingservice_image:
+        description: shippingservice image URI
+        value: ${{ jobs.build-push.outputs.shippingservice_image }}
+
+      shoppingassistantservice_image:
+        description: shoppingassistantservice image URI
+        value: ${{ jobs.build-push.outputs.shoppingassistantservice_image }}
+
   workflow_dispatch:
   # push:
   #   branches: [ main ]
@@ -17,10 +67,23 @@ jobs:
   build-push:
     runs-on: ubuntu-latest
     environment: dev
+    outputs:
+      adservice_image: ${{ steps.adservice-meta.outputs.image }}
+      cartservice_image: ${{ steps.cartservice-meta.outputs.image }}
+      checkoutservice_image: ${{ steps.checkoutservice-meta.outputs.image }}
+      currencyservice_image: ${{ steps.currencyservice-meta.outputs.image }}
+      emailservice_image: ${{ steps.emailservice-meta.outputs.image }}
+      frontend_image: ${{ steps.frontend-meta.outputs.image }}
+      loadgenerator_image: ${{ steps.loadgenerator-meta.outputs.image }}
+      paymentservice_image: ${{ steps.paymentservice-meta.outputs.image }}
+      productcatalogservice_image: ${{ steps.productcatalogservice-meta.outputs.image }}
+      recommendationservice_image: ${{ steps.recommendationservice-meta.outputs.image }}
+      shippingservice_image: ${{ steps.shippingservice-meta.outputs.image }}
+      shoppingassistantservice_image: ${{ steps.shoppingassistantservice-meta.outputs.image }}
 
     steps:
       - name: Checkout
-        continue-on-error: true
+        
         uses: actions/checkout@v4
 
       - name: Configure AWS credentials
@@ -30,12 +93,12 @@ jobs:
           aws-region: eu-north-1
 
       - name: Login to Amazon ECR
-        continue-on-error: true
+        
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
       - name: Build and push frontend
-        continue-on-error: true
+        
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: frontend-dev
@@ -43,9 +106,20 @@ jobs:
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./src/frontend
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+      - name: Export frontend image URI
+        id: frontend-meta
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: frontend-dev
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+
+      
       
       - name: Build and push checkoutservice
-        continue-on-error: true
+        
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: checkoutservice-dev
@@ -54,8 +128,37 @@ jobs:
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./src/checkoutservice
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
+      - name: Export checkoutservice image URI
+        id: checkoutservice-meta
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: checkoutservice-dev
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT          
+
+
+      - name: Build and push productcatalogservice
+        
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: productcatalogservice-dev
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./src/productcatalogservice
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+      - name: Export productcatalogservice image URI
+        id: productcatalogservice-meta
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: productcatalogservice-dev
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT                
+
       - name: Build and push cartservice
-        continue-on-error: true
+        
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: cartservice-dev
@@ -64,8 +167,17 @@ jobs:
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./src/cartservice/src
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
+      - name: Export cartservice image URI
+        id: cartservice-meta
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: cartservice-dev
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT          
+
       - name: Build and push currencyservice
-        continue-on-error: true
+        
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: currencyservice-dev
@@ -74,9 +186,18 @@ jobs:
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./src/currencyservice
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
+      - name: Export currencyservice image URI
+        id: currencyservice-meta
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: currencyservice-dev
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT          
+
 
       - name: Build and push emailservice
-        continue-on-error: true
+        
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: emailservice-dev
@@ -85,9 +206,18 @@ jobs:
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./src/emailservice
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
+      - name: Export emailservice image URI
+        id: emailservice-meta
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: emailservice-dev
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT          
+
 
       - name: Build and push paymentservice
-        continue-on-error: true
+        
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: paymentservice-dev
@@ -96,8 +226,17 @@ jobs:
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./src/paymentservice
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
+      - name: Export paymentservice image URI
+        id: paymentservice-meta
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: paymentservice-dev
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT          
+
       - name: Build and push recommendationservice
-        continue-on-error: true
+        
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: recommendationservice-dev
@@ -106,18 +245,36 @@ jobs:
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./src/recommendationservice
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
+      - name: Export recommendationservice image URI
+        id: recommendationservice-meta
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: recommendationservice-dev
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT          
+
       - name: Build and push shippingservice
-        continue-on-error: true
+        
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: shippingservice-dev
           IMAGE_TAG: ${{ github.sha }}
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./src/shippingservice
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG          
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG 
+
+      - name: Export shippingservice image URI
+        id: shippingservice-meta
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: shippingservice-dev
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT          
 
       - name: Build and push adservice
-        continue-on-error: true
+        
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: adservice-dev
@@ -125,23 +282,50 @@ jobs:
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./src/adservice
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+      - name: Export adservice image URI
+        id: adservice-meta
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: adservice-dev
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT          
           
       - name: Build and push loadgenerator
-        continue-on-error: true
+        
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: loadgenerator-dev
           IMAGE_TAG: ${{ github.sha }}
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./src/loadgenerator
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG        
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG  
+
+      - name: Export loadgenerator image URI
+        id: loadgenerator-meta
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: loadgenerator-dev
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT          
           
       - name: Build and push shoppingassistantservice
-        continue-on-error: true
+        
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: shoppingassistantservice-dev
           IMAGE_TAG: ${{ github.sha }}
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./src/shoppingassistantservice
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG                  
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG 
+
+      - name: Export shoppingassistantservice image URI
+        id: shoppingassistantservice-meta
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: shoppingassistantservice-dev
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT          

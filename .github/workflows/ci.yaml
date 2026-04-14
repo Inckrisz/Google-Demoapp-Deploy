@@ -12,19 +12,37 @@ permissions:
 jobs:
 
   docker:
-    uses: ./.github/workflows/docker-asdpush.yml
+    uses: ./.github/workflows/docker-build-push.yml
     secrets: inherit
 
-  scale-up:
+  generate-tfvars:
     needs: docker
-    uses: ./.github/workflows/scale-ecs.yml
+    uses: ./.github/workflows/generate_tfvars.yml
     with:
-      desired_count: "1"
+      frontend_image: ${{ needs.docker.outputs.frontend_image }}
+      shoppingassistantservice_image: ${{ needs.docker.outputs.shoppingassistantservice_image }}
+      recommendationservice_image: ${{ needs.docker.outputs.recommendationservice_image }}
+      loadgenerator_image: ${{ needs.docker.outputs.loadgenerator_image }}
+      shippingservice_image: ${{ needs.docker.outputs.shippingservice_image }}
+      checkoutservice_image: ${{ needs.docker.outputs.checkoutservice_image }}
+      currencyservice_image: ${{ needs.docker.outputs.currencyservice_image }}
+      productcatalogservice_image: ${{ needs.docker.outputs.productcatalogservice_image }}
+      cartservice_image: ${{ needs.docker.outputs.cartservice_image }}
+      adservice_image: ${{ needs.docker.outputs.adservice_image }}
+      emailservice_image: ${{ needs.docker.outputs.emailservice_image }}
+      paymentservice_image: ${{ needs.docker.outputs.paymentservice_image }}
     secrets: inherit
+
+  # scale-up:
+  #   needs: docker
+  #   uses: ./.github/workflows/scale-ecs.yml
+  #   with:
+  #     desired_count: "1"
+  #   secrets: inherit
 
   terraform:
-    needs: scale-up
-    uses: ./.github/workflows/terraform-apply.yml
+    needs: generate-tfvars
+    uses: ./.github/workflows/terraform-plan-apply.yml
     with:
       apply: true
     secrets: inherit
