@@ -28,6 +28,4 @@ resource "aws_ecs_service" "this" {
       registry_arn = var.service_registry_arn
     }
   }
-
-  # depends_on = var.listener_dependency != null ? [var.listener_dependency] : []
 }

@@ -34,8 +34,6 @@ module "ecs_cluster" {
   project     = var.project
 
   enable_container_insights = true
-
-  # capacity_providers = ["FARGATE", "FARGATE_SPOT"]
   capacity_providers = ["FARGATE"]
 
   default_capacity_provider_strategy = [
@@ -829,8 +827,6 @@ module "ecs_service_adservice" {
   cluster_arn         = module.ecs_cluster.cluster_arn
   subnet_ids          = module.network.public_subnet_ids
   name_prefix         = var.name_prefix
-
-  # iam_role = aws_iam_role.ecs_task_execution_role.arn
 }
 
 module "ecs_service_cartservice" {

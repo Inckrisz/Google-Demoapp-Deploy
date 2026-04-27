@@ -60,13 +60,6 @@ jobs:
       paymentservice_image: ${{ needs.docker.outputs.paymentservice_image }}
     secrets: inherit
 
-  # scale-up:
-  #   needs: docker
-  #   uses: ./.github/workflows/scale-ecs.yml
-  #   with:
-  #     desired_count: "1"
-  #   secrets: inherit
-
   terraform:
     needs: generate-tfvars
     uses: ./.github/workflows/terraform-plan-apply.yml
