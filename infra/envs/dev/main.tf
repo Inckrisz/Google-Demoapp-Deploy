@@ -34,7 +34,7 @@ module "ecs_cluster" {
   project     = var.project
 
   enable_container_insights = true
-  capacity_providers = ["FARGATE"]
+  capacity_providers        = ["FARGATE"]
 
   default_capacity_provider_strategy = [
     {
